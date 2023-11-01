@@ -31,15 +31,20 @@
                 android:text="Cancel" />
         </LinearLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <android.support.design.widget.TextInputEditText
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSignUpEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="E-mail"
+                android:inputType="textEmailAddress"
+                tools:ignore="TouchTargetSizeCheck" />
 
-    </LinearLayout>.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"

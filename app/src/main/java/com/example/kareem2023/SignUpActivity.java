@@ -1,20 +1,19 @@
-
 package com.example.kareem2023;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-public class SignInActivity extends AppCompatActivity {
-
+public class SignUpActivity extends AppCompatActivity {
     private TextInputEditText etSignInEmail;
     private TextInputEditText etSignInPassword;
     private Button btnSignInSignIn;
     private Button btnSignInSignUp;
     private Button btnSignInSave;
     private Button btnSignInCancel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +25,7 @@ public class SignInActivity extends AppCompatActivity {
         btnSignInSignUp= findViewById(R.id.btnSignInSignUp);
         btnSignInSave= findViewById(R.id.btnSignInSave);
         btnSignInCancel= findViewById(R.id.btnSignInCancel);
+
+
     }
 }
