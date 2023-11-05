@@ -24,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
                 Intent i = new Intent(SplashScreen.this, SignInActivity.class);
                 startActivity(i);
                 //to close current activity
-                finish();
+               finish();
             }
         };
         h.postDelayed(r, 3000);
