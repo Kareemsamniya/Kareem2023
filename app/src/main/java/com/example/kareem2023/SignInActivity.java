@@ -1,7 +1,9 @@
 
 package com.example.kareem2023;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,4 +30,12 @@ public class SignInActivity extends AppCompatActivity {
         btnSignInSave= findViewById(R.id.btnSignInSave);
         btnSignInCancel= findViewById(R.id.btnSignInCancel);
     }
+    public void onClickSignInSignUp(View V)
+    {
+
+        Intent i = new Intent(SignInActivity.this, SignUpActivity.class);
+        startActivity(i);
+        finish();
+    }
+
 }
