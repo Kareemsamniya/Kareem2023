@@ -16,26 +16,24 @@ public class SignInActivity extends AppCompatActivity {
     private TextInputEditText etSignInPassword;
     private Button btnSignInSignIn;
     private Button btnSignInSignUp;
-    private Button btnSignInSave;
-    private Button btnSignInCancel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
         etSignInEmail=  findViewById(R.id.etSignInEmail);
         etSignInPassword=  findViewById(R.id.etSignInPassword);
         btnSignInSignIn=  findViewById(R.id.btnSignInSignIn);
         btnSignInSignUp= findViewById(R.id.btnSignInSignUp);
-        btnSignInSave= findViewById(R.id.btnSignInSave);
-        btnSignInCancel= findViewById(R.id.btnSignInCancel);
+
     }
     public void onClickSignInSignUp(View V)
     {
 
         Intent i = new Intent(SignInActivity.this, SignUpActivity.class);
         startActivity(i);
-        finish();
     }
 
 }
