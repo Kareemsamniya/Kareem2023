@@ -46,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="onClickSignIn"
             android:text="sign in" />
 
         <Button
@@ -53,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="onClickSignInSignUp"
+            android:onClick="onClickSignUpSignIn"
             android:text="sign up" />
 
     </LinearLayout>

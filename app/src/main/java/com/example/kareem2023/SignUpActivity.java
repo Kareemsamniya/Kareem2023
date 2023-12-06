@@ -13,7 +13,11 @@ import com.example.kareem2023.data.usersTable.MyUser;
 import com.example.kareem2023.data.usersTable.MyUserQuery;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class SignUpActivity extends AppCompatActivity {
+
+
+public class  SignUpActivity extends AppCompatActivity {
+
+
 
     private TextInputEditText etSignUpEmail;
     private TextInputEditText etSignUpPassword;
@@ -22,6 +26,8 @@ public class SignUpActivity extends AppCompatActivity {
     private TextInputEditText etSignUpPhone;
     private Button btnSignUpSave;
     private Button btnSignUpCancel;
+
+
 
 
     @Override
@@ -35,6 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
         etSignUpPhone=  findViewById(R.id.etSignUpPhone);
         btnSignUpSave= findViewById(R.id.btnSignUpSave);
         btnSignUpCancel= findViewById(R.id.btnSignUpCancel);
+
 
 
     }
