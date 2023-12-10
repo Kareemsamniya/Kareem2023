@@ -72,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:hint="re-password"
+                android:inputType="textPassword"
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 

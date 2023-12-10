@@ -9,38 +9,8 @@
     tools:context=".MainActivity"
     tools:ignore="DuplicateIds">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabMainAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:baselineAlignBottom="false"
-        android:clickable="true"
-        android:src="@android:drawable/ic_input_add"
-        tools:ignore="SpeakableTextPresentCheck" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/srshMainV"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <Spinner
-            android:id="@+id/spnrMainSubject"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="0"
-            android:contentDescription="@string/app_name" />
-
-        <ListView
-            android:id="@+id/lstMainVTask"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
+        android:orientation="vertical"/>
 </RelativeLayout>

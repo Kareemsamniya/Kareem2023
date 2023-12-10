@@ -13,27 +13,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton fabMainAdd;
-    private SearchView srshMainV;
-    private ListView lstMainVTask;
 
-    //spnr1
-    private Spinner spnrMainSubject;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
-        fabMainAdd = findViewById(R.id.fabMainAdd);
-        srshMainV = findViewById(R.id.srshMainV);
-        lstMainVTask = findViewById(R.id.lstMainVTask);
-        spnrMainSubject=findViewById(R.id.spnrMainSubject);
-        fabMainAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, SignInActivity.class);
-                startActivity(i);
 
-            }
-        });
+
+
     }
 }
