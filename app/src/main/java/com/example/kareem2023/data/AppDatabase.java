@@ -6,6 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.kareem2023.data.productTable.Product;
 import com.example.kareem2023.data.usersTable.MyUser;
 import com.example.kareem2023.data.usersTable.MyUserQuery;
 
@@ -32,6 +33,13 @@ version
          */
 
         public abstract MyUserQuery getMyUserQuery();
+
+        /**
+         * يعيد كائن لعمليات جدول المنتجات
+         * @return
+         */
+
+        public abstract Product getProduct();
 
         /**
          * بناء قاعدة البيانات واعادة كائن يؤشر عليها

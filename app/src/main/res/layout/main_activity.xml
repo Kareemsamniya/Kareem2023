@@ -12,5 +12,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"/>
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnMainCkCode"
+            android:layout_width="match_parent"
+            android:layout_height="371dp"
+            android:text="CHECK WITH CODE"
+            android:onClick="onClickCheckWithCode"
+            />
+
+        <Button
+            android:id="@+id/btnMainChkScan"
+            android:layout_width="match_parent"
+            android:layout_height="355dp"
+            android:text="CHECK WITH SCAN"
+            android:onClick="onClickCheckWithScan"
+            />
+
+
+
+    </LinearLayout>
 </RelativeLayout>

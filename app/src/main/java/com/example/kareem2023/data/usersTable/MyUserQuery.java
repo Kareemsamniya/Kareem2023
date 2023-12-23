@@ -9,7 +9,8 @@ import java.util.List;
 //2
 @Dao//لتحديد ان الواجهة تحتوي استعلامات على قاعدة بيانات
 
-public interface MyUserQuery {
+public interface MyUserQuery
+{
     @Query("SELECT * FROM MyUser")
     List<MyUser> getAll();
 
