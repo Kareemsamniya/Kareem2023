@@ -16,9 +16,9 @@ public class HaveAlergy extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_have_alergy);
-        btnHaveAlergy= findViewById(R.id.btnHaveAlergy);
+        btnHaveAlergy= findViewById(R.id.btnHaveTry);
     }
-    public void onClickTryAnother(View V)
+    public void onClickHaveTryAnother(View V)
     {
         Intent i = new Intent(HaveAlergy.this, MainActivity.class);
         startActivity(i);

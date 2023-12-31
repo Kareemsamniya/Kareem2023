@@ -3,16 +3,27 @@ package com.example.kareem2023.data.productTable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.example.kareem2023.data.Alergy.MyAlergy;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 @Entity
-public class Product
-{
+public class Product {
     @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
-    public  long key_id;
+    public long key_id;
     public String Barcode;
     public String ProductName;
     public String CompanyName;
-    public Product [] p;
+    public ArrayList<MyAlergy> Alergieses;
+
+
+    public Product(String barcode, String productName, String companyName, ArrayList<MyAlergy> alergieses) {
+        Barcode = barcode;
+        ProductName = productName;
+        CompanyName = companyName;
+        Alergieses = alergieses;
+    }
 
     @Override
     public String toString() {
@@ -21,7 +32,8 @@ public class Product
                 ", Barcode='" + Barcode + '\'' +
                 ", ProductName='" + ProductName + '\'' +
                 ", CompanyName='" + CompanyName + '\'' +
-                ", p=" + Arrays.toString(p) +
+                ", Alergieses=" + Alergieses +
                 '}';
     }
 }
+

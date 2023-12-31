@@ -17,6 +17,8 @@ public class MyUser
         public String email;//بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
         public String phone;
         public String passw;
+        public String alergy;
+
 
 
         @Override
@@ -27,6 +29,7 @@ public class MyUser
                     ", email='" + email + '\'' +
                     ", phone='" + phone + '\'' +
                     ", passw='" + passw + '\'' +
+                    ", alergy='" + alergy +
                     '}';
         }
     }
