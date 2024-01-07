@@ -119,6 +119,8 @@ public class BarcodeScannerActivity extends AppCompatActivity {
             });
         }
 
+
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -131,5 +133,13 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         super.onResume();
         getSupportActionBar().hide();
         initialiseDetectorsAndSources();
+    }
+
+    public TextView getBarcodeText() {
+        return barcodeText;
+    }
+
+    public String getBarcodeData() {
+        return barcodeData;
     }
 }

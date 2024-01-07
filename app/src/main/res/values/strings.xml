@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Kareem2023</string>
+    <string-array
+
+
+        name="Alg">
+        <item>"salt"</item>//ملح
+        <item>"sunflower oil"</item>//زيت عبادي الشمس
+        <item>"ground peants"</item>//فول سوداني
+        <item>"corn seed"</item>//حبوب الذرة
+    </string-array>
+
+    <array name="ggg">
+        <item>salt</item>//ملح
+        <item>sunflower oil</item>//زيت عبادي الشمس
+        <item>ground peants</item>//فول سوداني
+        <item>corn seed</item>//حبوب الذرة
+    </array>
+
 </resources>
