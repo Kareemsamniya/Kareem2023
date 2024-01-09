@@ -7,6 +7,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.kareem2023.data.productTable.Product;
+import com.example.kareem2023.data.productTable.ProductQuery;
 import com.example.kareem2023.data.usersTable.MyUser;
 import com.example.kareem2023.data.usersTable.MyUserQuery;
 
@@ -15,7 +16,7 @@ import com.example.kareem2023.data.usersTable.MyUserQuery;
 version
 عند احداث تغيير يخص جدول او جداول علينا تغيير رقم الأصدار ليتم بناء قاعدة البينات من جديد
  */
-    @Database(entities = {MyUser.class},version = 1)
+    @Database(entities = {MyUser.class, Product.class},version = 1)
 /**
  * الفئة المسئولة عن بناء قاعدة البيانات لكل جداولها
  * وتوفر لنا كائن للتعامل مع قاعدة البيانات
@@ -39,7 +40,7 @@ version
          * @return
          */
 
-        public abstract Product getProduct();
+        public abstract ProductQuery getProductQuery();
 
         /**
          * بناء قاعدة البيانات واعادة كائن يؤشر عليها

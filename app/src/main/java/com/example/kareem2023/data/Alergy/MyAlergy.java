@@ -11,14 +11,14 @@ public class MyAlergy {
     public long key_id;
     public ArrayList<String> AlergyName;
     public String Info;
-    private String BambaAlergieses = new String() ;
-
-
-    private String [] arr;
-    public MyAlergy()
-    {
-        arr = new String[]{BambaAlergieses};
-    }
+//    private String BambaAlergieses = new String() ;
+//
+//
+//    private String [] arr;
+//    public MyAlergy()
+//    {
+//        arr = new String[]{BambaAlergieses};
+//    }
 
 
 
