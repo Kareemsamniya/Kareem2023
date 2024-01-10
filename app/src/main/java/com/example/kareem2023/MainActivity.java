@@ -1,7 +1,5 @@
 package com.example.kareem2023;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,26 +7,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 
 import com.example.kareem2023.data.Alergy.MyAlergy;
-import com.example.kareem2023.data.productTable.Product;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.kareem2023.data.productTable.MyProduct;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnMainCkScan;
     private Button btnMainCkCode;
-    private ArrayList<Product> arrProducts;
+    private ArrayList<MyProduct> arrProducts;
     private ArrayList<MyAlergy> AlergyTypes1;
     private MyAlergy BambaAlergieses = new MyAlergy() ;
     private ArrayList<MyAlergy> AlergyTypes2;
@@ -50,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         AlergyTypes1=new ArrayList<>();
         AlergyTypes1.set(0,BambaAlergieses);
         arrProducts = new ArrayList<>();
-        arrProducts.add(0,new Product("87820","Bamba","Osem",AlergyTypes1));
+        arrProducts.add(0,new MyProduct("87820","Bamba","Osem",AlergyTypes1));
 
         ArrayList <String> arrAlergiesesBisley = new ArrayList<>();
         arrAlergiesesBisley.add("milk");
@@ -58,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         BisleyAlergieses.setAlergyName(arrAlergiesesBamba);
         AlergyTypes2=new ArrayList<>();
         AlergyTypes2.set(0,BisleyAlergieses);
-        arrProducts.add(1,new Product("45960","Bisley","Osem",AlergyTypes2));
+        arrProducts.add(1,new MyProduct("45960","Bisley","Osem",AlergyTypes2));
     }
         public void onClickCheckWithCode(View V)
         {

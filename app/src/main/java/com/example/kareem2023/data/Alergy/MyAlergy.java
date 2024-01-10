@@ -2,8 +2,6 @@ package com.example.kareem2023.data.Alergy;
 
 import androidx.room.PrimaryKey;
 
-import com.example.kareem2023.data.productTable.Product;
-
 import java.util.ArrayList;
 
 public class MyAlergy {
@@ -11,6 +9,8 @@ public class MyAlergy {
     public long key_id;
     public ArrayList<String> AlergyName;
     public String Info;
+
+
 //    private String BambaAlergieses = new String() ;
 //
 //

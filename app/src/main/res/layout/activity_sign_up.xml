@@ -103,14 +103,17 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/spnrAlergy"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="48dp"
-            android:text="Alergy"
-            tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSignUpAlergyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="AlergyName" />
+        </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
 

@@ -9,8 +9,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
 import com.example.kareem2023.data.AppDatabase;
-import com.example.kareem2023.data.productTable.Product;
-import com.example.kareem2023.data.productTable.ProductQuery;
+import com.example.kareem2023.data.productTable.MyProduct;
+import com.example.kareem2023.data.productTable.MyProductQuery;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
@@ -41,11 +41,11 @@ public class AddProduct extends AppCompatActivity {
         // مؤشر لقاعدة البيانات
         AppDatabase db=AppDatabase.getDB(getApplicationContext());
         // مؤشر لواجهة استعلامات جدول المنتجات
-        ProductQuery ProductQuery = db.getProductQuery();
+        MyProductQuery ProductQuery = db.getMyProductQuery();
         // مصدر المعطيات: استخراج جميع المواضيع من الجدول
-        List<Product> allAlergieses = ProductQuery.getAllAlergieses();
+        List<MyProduct> allAlergieses = ProductQuery.getAllAlergieses();
         // تجهيز الوسيط
-        ArrayAdapter<Product> adapter=new ArrayAdapter<Product>(this, android.R.layout.simple_dropdown_item_1line);
+        ArrayAdapter<MyProduct> adapter=new ArrayAdapter<MyProduct>(this, android.R.layout.simple_dropdown_item_1line);
         adapter.addAll(allAlergieses); //اضافة جميع المعطيات للوسيط
         autoEtAddProductAlergy.setAdapter(adapter);// ربط الحقل بالوسيط
         // معالجة حدث لعرض المواضيع عند الضغط على الحقل
@@ -75,48 +75,53 @@ public class AddProduct extends AppCompatActivity {
         //استخراج اسم الشركة
         String CompanyName = etAddProductCompanyName.getText().toString();
         //استخراج نص الموضوع
-        String Barcode = autoEtAddTaskSubject.getText().toString();
+        String Barcode = etAddProductBarcode.getText().toString();
         //استخراج الأهمية
-        int Importance = skbrAddTaskImportance.getProgress();
-        //فحص النص القصير ان كان فارغ
-        if (ShortTitle.length() < 2 || ShortTitle.contains(" ") == true) {
+        String ProductAlergy = autoEtAddProductAlergy.getText().toString();
+        //فحص اسم الشركة ان كان فارغ
+        if (ProductName.length() < 2 || ProductName.contains(" ") == true) {
             //تعديل المتغير ليدل على ان الفحص يعطي نتيجة خاطئة
             isAllOk = false;
             //عرض ملاحظة خطأ على الشاشة داخل حقل النص القصير
-            etAddTaskShortTitle.setError("Wrong Short Title");
+            etAddProductProductName.setError("Wrong ProductName");
         }
-        if (Text.length() < 2 )
+        if (CompanyName.length() < 2 || CompanyName.contains(" ") == true )
         {
             isAllOk = false;
-            etAddTaskText.setError("Wrong Text");
+            etAddProductCompanyName.setError("Wrong Company Name");
         }
-        if (SubjText.length() < 2 )
+        if (Barcode.length() < 10 )
         {
             isAllOk = false;
-            autoEtAddTaskSubject.setError("Wrong Subject");
+            etAddProductBarcode.setError("Wrong Barcode");
+        }
+        if (ProductAlergy.length() < 2 || ProductAlergy.contains(" ") == true)
+        {
+            isAllOk = false;
+            autoEtAddProductAlergy.setError("Wrong Product Alergy");
         }
         if(isAllOk)
         {
             Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
             //بناء قاعدة بيانات وارجاع مؤشر عليها 1
             AppDatabase db= AppDatabase.getDB(getApplicationContext());
-            MySubjectQuery subjectQuery = db.getMySubjectQuery();
-            if(subjectQuery.checkSubject(SubjText)==null)// فحص هل الموضوع موجود من قبل بالجدول
+            MyProductQuery productQuery = db.getMyProductQuery();
+            if(productQuery.checkAlergyName(ProductAlergy)==null)// فحص هل الموضوع موجود من قبل بالجدول
             {// بناء موضوع جديد واضافته
-                MySubject subject=new MySubject();
-                subject.Title=SubjText;
-                subjectQuery.insert(subject);
+                MyProduct product=new MyProduct();
+                product.AlergyName=ProductAlergy;
+                productQuery.insert(product);
             }
-            //استخراج الموضوع لاننا بحاجة لرقمه التسلسلي id
-            MySubject subject = subjectQuery.checkSubject(SubjText);
-            //بناء مهمة جديدة وتحديد صفاتها
-            MyTask task = new MyTask();
+            //استخراج المنتج لاننا بحاجة لرقمه التسلسلي id
+            MyProduct product = productQuery.checkAlergyName(ProductAlergy);
+            //بناء منتج جديد وتحديد صفاته
+            MyProduct Product = new MyProduct();
             //تجديد قيم الصفات بالقيم التي استخرجناها
-            task.ShortTitle=ShortTitle;
-            task.text=Text;
-            task.importance= Importance;
-            task.subjId=subject.getKey_id();// تحديد رقم الموضوع للمهمة
-            db.getMyTaskQuery().insertTask(task);// اضافة المهمة للجدول
+            Product.ProductName=ProductName;
+            Product.CompanyName=CompanyName;
+            Product.Barcode= Barcode;
+            Product.key_id=product.getKey_id();// تحديد رقم المنتج للمهمة
+            db.getMyProductQuery().insertProduct(Product);// اضافة المنتج للجدول
             finish();//اغلاق الشاشة الخالية
 
         }
