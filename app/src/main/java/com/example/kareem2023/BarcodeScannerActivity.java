@@ -57,11 +57,11 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                 @Override
                 public void surfaceCreated(SurfaceHolder holder) {
                     try {
-                        if (ActivityCompat.checkSelfPermission(BarcodeScannerActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.checkSelfPermission(BarcodeScannerActivity.this,"android.permission.CAMERA") == PackageManager.PERMISSION_GRANTED) {
                             cameraSource.start(surfaceView.getHolder());
                         } else {
                             ActivityCompat.requestPermissions(BarcodeScannerActivity.this, new
-                                    String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+                                    String[]{"android.permission.CAMERA"}, REQUEST_CAMERA_PERMISSION);
                         }
 
                     } catch (IOException e) {

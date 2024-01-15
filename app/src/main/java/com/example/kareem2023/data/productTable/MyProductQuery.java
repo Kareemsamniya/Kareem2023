@@ -15,7 +15,7 @@ public interface MyProductQuery
 
 
     @Query("SELECT AlergyName FROM MyProduct")
-    List<MyProduct> getAllAlergieses();
+    List<String> getAllAlergieses();
 
 
     @Query("SELECT * FROM MyProduct WHERE Barcode=:Barcode_p")

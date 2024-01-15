@@ -43,9 +43,9 @@ public class AddProduct extends AppCompatActivity {
         // مؤشر لواجهة استعلامات جدول المنتجات
         MyProductQuery ProductQuery = db.getMyProductQuery();
         // مصدر المعطيات: استخراج جميع المواضيع من الجدول
-        List<MyProduct> allAlergieses = ProductQuery.getAllAlergieses();
+        List<String> allAlergieses = ProductQuery.getAllAlergieses();
         // تجهيز الوسيط
-        ArrayAdapter<MyProduct> adapter=new ArrayAdapter<MyProduct>(this, android.R.layout.simple_dropdown_item_1line);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line);
         adapter.addAll(allAlergieses); //اضافة جميع المعطيات للوسيط
         autoEtAddProductAlergy.setAdapter(adapter);// ربط الحقل بالوسيط
         // معالجة حدث لعرض المواضيع عند الضغط على الحقل

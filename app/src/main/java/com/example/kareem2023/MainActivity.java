@@ -20,11 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private Button btnMainCkScan;
     private Button btnMainCkCode;
-    private ArrayList<MyProduct> arrProducts;
-    private ArrayList<MyAlergy> AlergyTypes1;
-    private MyAlergy BambaAlergieses = new MyAlergy() ;
-    private ArrayList<MyAlergy> AlergyTypes2;
-    private MyAlergy BisleyAlergieses = new MyAlergy() ;
+
 
 
 
@@ -35,22 +31,7 @@ public class MainActivity extends AppCompatActivity {
         btnMainCkCode = findViewById(R.id.btnMainCkCode);
         btnMainCkScan = findViewById(R.id.btnMainChkScan);
 
-        ArrayList <String> arrAlergiesesBamba = new ArrayList<>();
-        arrAlergiesesBamba.add("milk");
-        arrAlergiesesBamba.add("butter");
-        BambaAlergieses.setAlergyName(arrAlergiesesBamba);
-        AlergyTypes1=new ArrayList<>();
-        AlergyTypes1.set(0,BambaAlergieses);
-        arrProducts = new ArrayList<>();
-        arrProducts.add(0,new MyProduct("87820","Bamba","Osem",AlergyTypes1));
 
-        ArrayList <String> arrAlergiesesBisley = new ArrayList<>();
-        arrAlergiesesBisley.add("milk");
-        arrAlergiesesBisley.add("butter");
-        BisleyAlergieses.setAlergyName(arrAlergiesesBamba);
-        AlergyTypes2=new ArrayList<>();
-        AlergyTypes2.set(0,BisleyAlergieses);
-        arrProducts.add(1,new MyProduct("45960","Bisley","Osem",AlergyTypes2));
     }
         public void onClickCheckWithCode(View V)
         {
