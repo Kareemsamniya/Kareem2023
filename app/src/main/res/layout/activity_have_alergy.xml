@@ -13,15 +13,17 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="354dp"
+            android:layout_width="240dp"
+            android:layout_height="219dp"
+            android:layout_gravity="center"
             app:srcCompat="@drawable/can" />
 
         <Button
             android:id="@+id/btnHaveTry"
             android:layout_width="match_parent"
-            android:layout_height="374dp"
+            android:layout_height="wrap_content"
             android:onClick="onClickHaveTryAnother"
-            android:text="TRY ANOTHER PRODUCT" />
+            android:text="TRY ANOTHER PRODUCT"
+            android:textSize="18sp" />
     </LinearLayout>
 </RelativeLayout>

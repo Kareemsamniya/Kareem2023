@@ -11,16 +11,35 @@ import java.util.List;
 
 public interface MyUserQuery
 {
-    @Query("SELECT * FROM MyUser")
-    List<MyUser> getAll();
+    /**
+     * الدالة تقوم بادخال الكائن الى الجدول
+     * @param myUser
+     */
+    @Insert
+    void insert(MyUser myUser);
 
-    @Query("SELECT * FROM MyUser WHERE keyid IN (:userIds)")
-    List<MyUser> loadAllByIds(int[] userIds);
+    /**
+     *الدالة تقوم بتحديث القيمة ي الجدول
+     * @param values
+     */
+    @Update
+    void update(MyUser...values);
 
+    /**
+     *الدالة تقوم بفحص حساب الجيميل والرقم السري اذا موجود من قبل في الجدول
+     * @param myEmail
+     * @param myPassw
+     * @return
+     */
     @Query("SELECT * FROM MyUser WHERE email = :myEmail AND " +
             "passw = :myPassw LIMIT 1")
     MyUser checkEmailPassw(String myEmail, String myPassw);
 
+    /**
+     *      *الدالة تقوم بفحص حساب الجيميل اذا موجود من قبل في الجدول
+     * @param myEmail
+     * @return
+     */
     @Query("SELECT * FROM MyUser WHERE email = :myEmail")
     MyUser checkEmail(String myEmail);
 
@@ -30,9 +49,12 @@ public interface MyUserQuery
     @Delete
     void delete(MyUser user);
 
-    @Insert
-    void insert(MyUser myUser);
-    @Update
-    void update(MyUser...values);
+    @Query("SELECT * FROM MyUser WHERE keyid IN (:userIds)")
+    List<MyUser> loadAllByIds(int[] userIds);
+
+    @Query("SELECT * FROM MyUser")
+    List<MyUser> getAll();
+
+
 }
 

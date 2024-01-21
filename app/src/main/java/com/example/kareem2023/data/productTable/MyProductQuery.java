@@ -13,30 +13,39 @@ import java.util.List;
 public interface MyProductQuery
 {
 
-
+    /**
+     * الدالة تقوم باعادة جميع الحساسيات
+     * @return
+     */
     @Query("SELECT AlergyName FROM MyProduct")
     List<String> getAllAlergieses();
 
-
-    @Query("SELECT * FROM MyProduct WHERE Barcode=:Barcode_p")
-    List<MyProduct> getProductBySubjId(long Barcode_p);
-
+    /**
+     * تفحص الدالة اذا الحساسية الذي استخرجناها من المنتج موجودة عند الشخص
+     * @param myAlergy
+     * @return
+     */
     @Query("SELECT * FROM MyProduct WHERE AlergyName = :myAlergy")
     MyProduct checkAlergyName(String myAlergy);
 
-    @Insert
-    void insert(MyProduct myProduct);
     /**
-     * ادخال مهمات
+     *الدالة تقوم باضافة المنتجات الى الجدول
      * @param t مجموعة مهمات
      */
     @Insert
     void insertProduct(MyProduct...t); //ثلث نقاط تعني ادخال مجموعة
 
     /**
+     * الدالة تضيف الى الجدول
+     * @param myProduct
+     */
+    @Insert
+    void insert(MyProduct myProduct);
+    /**
      * تعديل المهمات
      * @param task مجموعة مهمات للتعديل (التعديل ب المفتاح الرئيسي)
      */
+
     @Update
     void updateProduct(MyProduct... task);
 
@@ -46,6 +55,9 @@ public interface MyProductQuery
      */
     @Delete
     void deleteProduct(MyProduct...tasks);
+
+    @Query("SELECT * FROM MyProduct WHERE Barcode=:Barcode_p")
+    List<MyProduct> getProductBySubjId(long Barcode_p);
 
     @Query("DELETE FROM MyProduct WHERE Barcode=:Barcode")
     void delProductBarcode(long Barcode);

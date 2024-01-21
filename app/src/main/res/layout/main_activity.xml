@@ -14,17 +14,28 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="ENTER PRODUCT CODE OR PRESS SCAN" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
             android:id="@+id/btnMainCkCode"
             android:layout_width="match_parent"
-            android:layout_height="371dp"
+            android:layout_height="wrap_content"
             android:onClick="onClickCheckWithCode"
             android:text="CHECK WITH CODE" />
 
         <Button
             android:id="@+id/btnMainChkScan"
             android:layout_width="match_parent"
-            android:layout_height="355dp"
+            android:layout_height="wrap_content"
             android:onClick="onClickCheckWithScan"
             android:text="CHECK WITH SCAN" />
 
