@@ -8,14 +8,18 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.kareem2023.data.Alergy.MyAlergy;
 import com.example.kareem2023.data.AppDatabase;
 import com.example.kareem2023.data.productTable.MyProduct;
 import com.example.kareem2023.data.usersTable.MyUser;
 import com.example.kareem2023.data.usersTable.MyUserQuery;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -72,7 +76,7 @@ public class  SignUpActivity extends AppCompatActivity  {
     public void onClickSignUp(View V)
     {
 
-        checkSignUp();
+        checkAndSignUP_FB();
     }
     private void checkSignUp()
     {
@@ -153,6 +157,71 @@ public class  SignUpActivity extends AppCompatActivity  {
         }
 
 
+    }
+
+
+    private void checkAndSignUP_FB()
+    {
+        boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
+        //استخراج النص من حقل الايميل
+        String Email = etSignUpEmail.getText().toString();
+        //استخراج نص كلمة المرور
+        String Password = etSignUpPassword.getText().toString();
+        //استخراج نص تأكيد كلمة المرور
+        String RePassword = etSignUpRepassword.getText().toString();
+        //استخراج نص الاسم
+        String Name = etSignUpName.getText().toString();
+        //استخراج نص رقم الهاتف
+        String Phone = etSignUpPhone.getText().toString();
+        //فحص الايميل ان كان طوله اقل من 6 او لا يحوي @ فهو خطأ
+        if (Email.length() < 6 || Email.contains("@") == false)
+        {
+            //تعديل المتغير ليدل على ان الفحص يعطي نتيجة خاطئة
+            isAllOk = false;
+            //عرض ملاحظة خطأ على الشاشة داخل حقل البريد
+            etSignUpEmail.setError("Wrong Email");
+        }
+        if(Password.length() < 8 || Password.contains(" ") == true)
+        {
+            isAllOk = false;
+            etSignUpPassword.setError("Wrong Password");
+        }
+        if(RePassword.contains(" ") == true || RePassword.equals(Password) == false )
+        {
+            isAllOk = false;
+            etSignUpRepassword.setError("Wrong Re-Password");
+        }
+        if(Name.length() < 2 || Name.contains(" ") == true)
+        {
+            isAllOk = false;
+            etSignUpName.setError("Wrong Name");
+        }
+        if(Phone.length() != 10 || Phone.contains(" ") == true )
+        {
+            isAllOk = false;
+            etSignUpPhone.setError("Wrong Phone");
+        }
+        if(isAllOk)
+        {
+            //עצם לביצוע רישום كائن لعملية التسجيل
+            FirebaseAuth auth= FirebaseAuth.getInstance();
+            //יצירת חשבון בעזרת מיל וסיסמא
+            auth.createUserWithEmailAndPassword(Email,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override//התגובה שמתקבל הניסיון הרישום בענן
+                public void onComplete(@NonNull Task<AuthResult> task) {//הפרמטר מכיל מידע מהשרת על תוצאת הבקשה לרישום
+                    if(task.isSuccessful())
+                    {
+                        Toast.makeText(SignUpActivity.this, "Signing up succeeded", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(SignUpActivity.this, "Signing up failed", Toast.LENGTH_SHORT).show();
+                        etSignUpEmail.setError(task.getException().getMessage());//הצגת הודעת השגיאה שהתקבלה מהענן
+                    }
+                }
+            });
+        }
     }
 
 

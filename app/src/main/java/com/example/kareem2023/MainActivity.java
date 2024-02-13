@@ -12,10 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.kareem2023.data.Alergy.MyAlergy;
-import com.example.kareem2023.data.productTable.MyProduct;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnMainCkScan;
@@ -82,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 //
                 Toast.makeText(MainActivity.this, "Signing out", Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
                 finish();
             }
         });

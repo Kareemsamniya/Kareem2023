@@ -7,12 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.kareem2023.data.AppDatabase;
 import com.example.kareem2023.data.usersTable.MyUser;
 import com.example.kareem2023.data.usersTable.MyUserQuery;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -45,7 +50,7 @@ public class SignInActivity extends AppCompatActivity {
     public void onClickSignIn(View V)
     {
 
-        checkSignIn();
+        checkEmailPassw_FB();
     }
     private void checkSignIn()
     {
@@ -91,5 +96,50 @@ public class SignInActivity extends AppCompatActivity {
 
 
     }
+
+    private void checkEmailPassw_FB()
+    {
+        boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
+        //استخراج النص من حقل الايميل
+        String Email = etSignInEmail.getText().toString();
+        //استخراج نص كلمة المرور
+        String Password = etSignInPassword.getText().toString();
+        //فحص الايميل ان كان طوله اقل من 6 او لا يحوي @ فهو خطأ
+        if (Email.length() < 6 || Email.contains("@") == false) {
+            //تعديل المتغير ليدل على ان الفحص يعطي نتيجة خاطئة
+            isAllOk = false;
+            //عرض ملاحظة خطأ على الشاشة داخل حقل البريد
+            etSignInEmail.setError("Wrong Email");
+        }
+        if (Password.length() < 8 || Password.contains(" ") == true) {
+            isAllOk = false;
+            etSignInPassword.setError("Wrong Password");
+        }
+        if (isAllOk)
+        {
+            //עצם לביצוע רישום كائن لعملية التسجيل
+            FirebaseAuth auth= FirebaseAuth.getInstance();
+            //יצירת חשבון בעזרת מיל וסיסמא
+            auth.signInWithEmailAndPassword(Email,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override//התגובה שמתקבל הניסיון הרישום בענן
+                public void onComplete(@NonNull Task<AuthResult> task) {//הפרמטר מכיל מידע מהשרת על תוצאת הבקשה לרישום
+                    if(task.isSuccessful())
+                    {
+                        Toast.makeText(SignInActivity.this, "Signing in", Toast.LENGTH_SHORT).show();
+                        //מעבר למסך הראשי
+                        Intent i=new Intent(SignInActivity.this,MainActivity.class);
+                        startActivity(i);
+
+                    }
+                    else
+                    {
+                        Toast.makeText(SignInActivity.this, "Signing in failed", Toast.LENGTH_SHORT).show();
+                        etSignInEmail.setError(task.getException().getMessage());//הצגת הודעת השגיאה שהתקבלה מהענן
+                    }
+                }
+            });
+        }
+    }
+
 
 }

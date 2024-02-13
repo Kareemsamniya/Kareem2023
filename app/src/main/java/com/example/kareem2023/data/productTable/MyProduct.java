@@ -14,8 +14,9 @@ public class MyProduct {
     //todo do ait later when
 
 
-
-
+    public long getKey_id() {
+        return key_id;
+    }
 
     @Override
     public String toString() {
