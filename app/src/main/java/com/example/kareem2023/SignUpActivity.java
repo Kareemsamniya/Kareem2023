@@ -212,6 +212,10 @@ public class  SignUpActivity extends AppCompatActivity  {
                     if(task.isSuccessful())
                     {
                         Toast.makeText(SignUpActivity.this, "Signing up succeeded", Toast.LENGTH_SHORT).show();
+                        private void saveUser_FB(String email, String name, String phone, String passw )
+                        {
+
+                        }
                         finish();
                     }
                     else
