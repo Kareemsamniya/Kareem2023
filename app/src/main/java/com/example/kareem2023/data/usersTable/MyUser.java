@@ -19,8 +19,64 @@ public class MyUser
         public String phone;//رقم الهاتف الشخص
         public String passw;//الرقم السري
         public String alergy;//اسم الحساسية
+        public String Id;//
 
 
+        public long getKeyid() {
+            return keyid;
+        }
+
+        public void setKeyid(long keyid) {
+            this.keyid = keyid;
+        }
+
+        public String getFullName() {
+            return fullName;
+        }
+
+        public void setFullName(String fullName) {
+            this.fullName = fullName;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public void setEmail(String email) {
+            this.email = email;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+
+        public void setPhone(String phone) {
+            this.phone = phone;
+        }
+
+        public String getPassw() {
+            return passw;
+        }
+
+        public void setPassw(String passw) {
+            this.passw = passw;
+        }
+
+        public String getAlergy() {
+            return alergy;
+        }
+
+        public void setAlergy(String alergy) {
+            this.alergy = alergy;
+        }
+
+        public String getId() {
+            return Id;
+        }
+
+        public void setId(String id) {
+            Id = id;
+        }
 
         @Override
         public String toString() {

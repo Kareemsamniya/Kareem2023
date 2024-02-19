@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -59,13 +60,6 @@ public class  SignUpActivity extends AppCompatActivity  {
         btnSignUpCancel= findViewById(R.id.btnSignUpCancel);
 
 
-
-
-
-
-
-
-
     }
     public void onClickSignUpCancel(View V)
     {
@@ -77,6 +71,43 @@ public class  SignUpActivity extends AppCompatActivity  {
     {
 
         checkAndSignUP_FB();
+    }
+
+    private void saveUser_FB(String email, String name, String phone, String passw , String alergy)
+    {
+        //مؤشر لقاعدة البيانات
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل "دوكيومنت"
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //بناء الكائن الذي سيتم حفظه
+        MyUser user = new MyUser();
+        user.setEmail(email);
+        user.setFullName(name);
+        user.setPhone(phone);
+        user.setPassw(passw);
+        user.setId(uid);
+        user.setAlergy(alergy);
+        //اضافة كائن "لمجموعة" المستعملين ومعالج حدث لفحص نجاح المطلوب
+        //معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
+        db.collection("MyUsers").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            //دلبة معلبج لبحدث
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                //هل تم تنفيذ المطلوب بنجاح
+                if(task.isSuccessful())
+                {
+                    Toast.makeText(SignUpActivity.this,"Succeeded to add User",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(SignUpActivity.this,"failed to add User",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
     }
     private void checkSignUp()
     {
@@ -212,10 +243,7 @@ public class  SignUpActivity extends AppCompatActivity  {
                     if(task.isSuccessful())
                     {
                         Toast.makeText(SignUpActivity.this, "Signing up succeeded", Toast.LENGTH_SHORT).show();
-                        private void saveUser_FB(String email, String name, String phone, String passw )
-                        {
-
-                        }
+                        saveUser_FB(Email,Password,RePassword,Name,Phone);
                         finish();
                     }
                     else
