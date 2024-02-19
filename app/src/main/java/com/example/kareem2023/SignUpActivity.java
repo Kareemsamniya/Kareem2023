@@ -194,6 +194,8 @@ public class  SignUpActivity extends AppCompatActivity  {
     private void checkAndSignUP_FB()
     {
         boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
+        //استخراج النص من حقل الحساسية
+        String Alergy = etSignUpAlergyName.getText().toString();
         //استخراج النص من حقل الايميل
         String Email = etSignUpEmail.getText().toString();
         //استخراج نص كلمة المرور
@@ -243,7 +245,7 @@ public class  SignUpActivity extends AppCompatActivity  {
                     if(task.isSuccessful())
                     {
                         Toast.makeText(SignUpActivity.this, "Signing up succeeded", Toast.LENGTH_SHORT).show();
-                        saveUser_FB(Email,Password,RePassword,Name,Phone);
+                        saveUser_FB(Email,Name,Password,Phone,Alergy);
                         finish();
                     }
                     else
