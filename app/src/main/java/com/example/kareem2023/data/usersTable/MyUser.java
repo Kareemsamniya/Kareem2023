@@ -16,10 +16,10 @@ public class MyUser
         public String fullName;//الاسم الشخصي
         //بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
         public String email;//حساب الجيميل الشخصي
-        public String phone;//رقم الهاتف الشخص
+        public String phone;//رقم الهاتف الشخصي
         public String passw;//الرقم السري
         public String alergy;//اسم الحساسية
-        public String Id;//
+        public String Id;//מזהה
 
 
         public long getKeyid() {
