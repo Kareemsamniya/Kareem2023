@@ -131,8 +131,9 @@ public class SignInActivity extends AppCompatActivity {
         {
             //עצם לביצוע רישום كائن لعملية التسجيل
             FirebaseAuth auth= FirebaseAuth.getInstance();
-            //יצירת חשבון בעזרת מיל וסיסמא
-            auth.signInWithEmailAndPassword(Email,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            //انشاء حساب مساعدة الميل والسسما
+            auth.signInWithEmailAndPassword(Email,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>()
+            {
                 @Override//התגובה שמתקבל הניסיון הרישום בענן
                 public void onComplete(@NonNull Task<AuthResult> task) {//הפרמטר מכיל מידע מהשרת על תוצאת הבקשה לרישום
                     if(task.isSuccessful())

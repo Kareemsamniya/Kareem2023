@@ -40,9 +40,14 @@ public class  SignUpActivity extends AppCompatActivity  {
 
 
 
+
+
+
+
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         etSignUpAlergyName=findViewById(R.id.etSignUpAlergyName);
@@ -67,15 +72,7 @@ public class  SignUpActivity extends AppCompatActivity  {
 
         checkAndSignUP_FB();
     }
-
-    /**
-     * الدالة تقوم باضافة المعطيات التي تلقتها بعد الفحص وبناء كائن واضافته الى مجموعة MyUsers في ال FireStore
-     * @param email
-     * @param name
-     * @param phone
-     * @param passw
-     * @param alergy
-     */
+    //دالة لحفظ المعطيات في firebase
     private void saveUser_FB(String email, String name, String phone, String passw , String alergy)
     {
         //مؤشر لقاعدة البيانات
@@ -193,9 +190,7 @@ public class  SignUpActivity extends AppCompatActivity  {
 
     }
 
-    /**
-     * دالة تقوم باستقبال المعطيات وفحصها اذا كانت سليمة وتقوم باضافة هذا الكائن الى قاعدة البيانات FireBase
-     */
+
     private void checkAndSignUP_FB()
     {
         boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
@@ -246,11 +241,13 @@ public class  SignUpActivity extends AppCompatActivity  {
             //יצירת חשבון בעזרת מיל וסיסמא
             auth.createUserWithEmailAndPassword(Email,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override//התגובה שמתקבל הניסיון הרישום בענן
-                public void onComplete(@NonNull Task<AuthResult> task) {//הפרמטר מכיל מידע מהשרת על תוצאת הבקשה לרישום
+                public void onComplete(@NonNull Task<AuthResult> task)
+                {//הפרמטר מכיל מידע מהשרת על תוצאת הבקשה לרישום
                     if(task.isSuccessful())
                     {
                         Toast.makeText(SignUpActivity.this, "Signing up succeeded", Toast.LENGTH_SHORT).show();
-                        saveUser_FB(Email,Name,Phone,Password,Alergy);
+                        saveUser_FB(Email,Name,Password,Phone,Alergy);//دالة لحفظ المعطيات في firebase
+                        finish();
                     }
                     else
                     {
