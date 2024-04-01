@@ -19,8 +19,7 @@ public class MyUser
         public String phone;//رقم الهاتف الشخصي
         public String passw;//الرقم السري
         public String alergy;//اسم الحساسية
-        public String Id;//מזהה
-
+        public String id;//מזהה
 
         public long getKeyid() {
             return keyid;
@@ -71,11 +70,11 @@ public class MyUser
         }
 
         public String getId() {
-            return Id;
+            return id;
         }
 
         public void setId(String id) {
-            Id = id;
+            this.id = id;
         }
 
         @Override
@@ -86,7 +85,8 @@ public class MyUser
                     ", email='" + email + '\'' +
                     ", phone='" + phone + '\'' +
                     ", passw='" + passw + '\'' +
-                    ", alergy='" + alergy +
+                    ", alergy='" + alergy + '\'' +
+                    ", id='" + id + '\'' +
                     '}';
         }
     }
