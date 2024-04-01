@@ -126,7 +126,7 @@ public class AddProduct extends AppCompatActivity {
             Product.ProductName=ProductName;
             Product.CompanyName=CompanyName;
             Product.Barcode= Barcode;
-            Product.key_id=product.getKey_id();// تحديد رقم المنتج للمهمة
+            Product.id=product.getId();// تحديد رقم المنتج للمهمة
             db.getMyProductQuery().insertProduct(Product);// اضافة المنتج للجدول
             finish();//اغلاق الشاشة الخالية
 
@@ -182,9 +182,13 @@ public class AddProduct extends AppCompatActivity {
         product.setCompanyName(CompanyName);
         product.setBarcode(Barcode);
         product.setAlergyName(ProductAlergy);
+        product.setUid(uid);
+        //استخراج رقم مميز للكائن المخزون بقاعدة البيانات
+        final String id = db.collection("MyProducts").document().getId();
+        product.setId(id);
         //اضافة كائن "لمجموعة" المنتجات ومعالج حدث لفحص نجاح المطلوب
         //معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
-        db.collection("MyProducts").document(uid).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.collection("MyProducts").document(id).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
             //دلبة معلبج لبحدث
             @Override
             public void onComplete(@NonNull Task<Void> task)

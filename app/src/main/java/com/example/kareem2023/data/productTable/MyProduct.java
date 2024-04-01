@@ -6,7 +6,11 @@ import androidx.room.PrimaryKey;
 @Entity
 public class MyProduct {
     @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
-    public long key_id;//رقم المنتج
+
+    public long RoomId;
+
+    public String id;//رقم المنتج
+    public String uid;
     public String Barcode;//الباركود للمنتج
     public String ProductName;//اسم المنتج
     public String CompanyName;//اسم شركة المنتج
@@ -14,8 +18,20 @@ public class MyProduct {
     //todo do ait later when
 
 
-    public void setKey_id(long key_id) {
-        this.key_id = key_id;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getBarcode() {
@@ -50,14 +66,12 @@ public class MyProduct {
         AlergyName = alergyName;
     }
 
-    public long getKey_id() {
-        return key_id;
-    }
-
     @Override
     public String toString() {
-        return "Product{" +
-                "Barcode='" + Barcode + '\'' +
+        return "MyProduct{" +
+                "id='" + id + '\'' +
+                ", uid='" + uid + '\'' +
+                ", Barcode='" + Barcode + '\'' +
                 ", ProductName='" + ProductName + '\'' +
                 ", CompanyName='" + CompanyName + '\'' +
                 ", AlergyName='" + AlergyName + '\'' +
