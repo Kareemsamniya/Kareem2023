@@ -12,12 +12,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
-
+/**
+ * الشاشة الرئيسية
+ */
 public class MainActivity extends AppCompatActivity {
     private Button btnMainCkScan;
     private Button btnMainCkCode;
+
+    private FloatingActionButton fabMainAdd;
 
 
 
@@ -28,12 +33,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
         btnMainCkCode = findViewById(R.id.btnMainCkCode);
         btnMainCkScan = findViewById(R.id.btnMainChkScan);
+        fabMainAdd = findViewById(R.id.fabMainAdd);
+        fabMainAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, AddProduct.class);
+                startActivity(i);
+
+            }
+        });
 
 
     }
         public void onClickCheckWithCode(View V)
         {
-
+            
             Intent i = new Intent(MainActivity.this, Code.class);
             startActivity(i);
 

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.kareem2023.data.AppDatabase;
@@ -27,6 +28,9 @@ public class AddProduct extends AppCompatActivity {
     private TextInputEditText etAddProductBarcode;
     private AutoCompleteTextView autoEtAddProductAlergy;
 
+    private Button btnAddProductScan;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +39,7 @@ public class AddProduct extends AppCompatActivity {
         etAddProductCompanyName = findViewById(R.id.etAddProductCompanyName);
         etAddProductBarcode = findViewById(R.id.etAddProductBarcode);
         autoEtAddProductAlergy = findViewById(R.id.autoEtAddProductAlergy);
+        btnAddProductScan = findViewById(R.id.btnAddProductSaveProduct);
         initAutoEtSubjects();
     }
     /**
@@ -167,7 +172,6 @@ public class AddProduct extends AppCompatActivity {
         if(isAllOk)
         {
             saveProduct_FB(ProductName,CompanyName,Barcode,ProductAlergy);
-            finish();
         }
     }
     private void saveProduct_FB(String ProductName, String CompanyName, String Barcode,String ProductAlergy)
@@ -208,4 +212,5 @@ public class AddProduct extends AppCompatActivity {
 
 
     }
+
 }
