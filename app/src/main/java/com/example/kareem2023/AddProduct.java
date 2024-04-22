@@ -3,6 +3,7 @@ package com.example.kareem2023;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -40,6 +41,13 @@ public class AddProduct extends AppCompatActivity {
         etAddProductBarcode = findViewById(R.id.etAddProductBarcode);
         autoEtAddProductAlergy = findViewById(R.id.autoEtAddProductAlergy);
         btnAddProductScan = findViewById(R.id.btnAddProductSaveProduct);
+        btnAddProductScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        btnAddProductSave
         initAutoEtSubjects();
     }
     /**
@@ -69,16 +77,7 @@ public class AddProduct extends AppCompatActivity {
 //        });
     }
 
-    public void onClickAddProductCancel(View V)
-    {
 
-        finish();
-    }
-    public void onClickAddProductSave(View V)
-    {
-
-        checkAddProduct_FB();
-    }
     private void checkAddProduct() {
         boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
         //استخراج النص من حقل اسم المنتج
@@ -201,7 +200,7 @@ public class AddProduct extends AppCompatActivity {
                 if(task.isSuccessful())
                 {
                     Toast.makeText(AddProduct.this,"Succeeded to add product",Toast.LENGTH_SHORT).show();
-                    finish();
+                   finish();
                 }
                 else
                 {
