@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,14 +13,11 @@ import android.widget.Toast;
 import com.example.kareem2023.data.AppDatabase;
 import com.example.kareem2023.data.productTable.MyProduct;
 import com.example.kareem2023.data.productTable.MyProductQuery;
-import com.example.kareem2023.data.usersTable.MyUser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.List;
 
 public class AddProduct extends AppCompatActivity {
     private TextInputEditText etAddProductProductName;
@@ -30,6 +26,8 @@ public class AddProduct extends AppCompatActivity {
     private AutoCompleteTextView autoEtAddProductAlergy;
 
     private Button btnAddProductScan;
+    private Button btnAddProductCancelProduct;
+    private Button btnAddProductSaveProduct;
 
 
     @Override
@@ -41,13 +39,23 @@ public class AddProduct extends AppCompatActivity {
         etAddProductBarcode = findViewById(R.id.etAddProductBarcode);
         autoEtAddProductAlergy = findViewById(R.id.autoEtAddProductAlergy);
         btnAddProductScan = findViewById(R.id.btnAddProductSaveProduct);
-        btnAddProductScan.setOnClickListener(new View.OnClickListener() {
+        btnAddProductCancelProduct = findViewById(R.id.btnAddProductCancelProduct);
+        btnAddProductSaveProduct = findViewById(R.id.btnAddProductSaveProduct);
+        btnAddProductCancelProduct.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-
+            public void onClick(View view)
+            {
+                finish();
             }
         });
-        btnAddProductSave
+        btnAddProductSaveProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent i = new Intent(AddProduct.this, MainActivityNormal.class);
+                startActivity(i);
+            }
+        });
         initAutoEtSubjects();
     }
     /**

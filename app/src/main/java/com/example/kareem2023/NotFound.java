@@ -20,7 +20,7 @@ public class NotFound extends AppCompatActivity {
     }
     public void onClickNotFoundTryAnother(View V)
     {
-        Intent i = new Intent(NotFound.this, MainActivity.class);
+        Intent i = new Intent(NotFound.this, MainActivityNormal.class);
         startActivity(i);
 
     }

@@ -21,6 +21,8 @@ public class MyProduct {
     public String AlergyName;//اسم الحساسية
     //todo do ait later when
 
+    public String isApproved;
+
 
     public String getId() {
         return id;

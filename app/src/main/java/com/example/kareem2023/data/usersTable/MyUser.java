@@ -19,7 +19,10 @@ public class MyUser
         public String phone;//رقم الهاتف الشخصي
         public String passw;//الرقم السري
         public String alergy;//اسم الحساسية
+
         public String id;//מזהה
+
+        public String manager;
 
         public long getKeyid() {
             return keyid;
@@ -77,6 +80,14 @@ public class MyUser
             this.id = id;
         }
 
+        public String getManager() {
+            return manager;
+        }
+
+        public void setManager(String manager) {
+            this.manager = manager;
+        }
+
         @Override
         public String toString() {
             return "MyUser{" +
@@ -87,6 +98,7 @@ public class MyUser
                     ", passw='" + passw + '\'' +
                     ", alergy='" + alergy + '\'' +
                     ", id='" + id + '\'' +
+                    ", manager='" + manager + '\'' +
                     '}';
         }
     }

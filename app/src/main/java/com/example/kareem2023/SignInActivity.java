@@ -34,7 +34,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         if(FirebaseAuth.getInstance().getCurrentUser()!= null)
         {
-            Intent i = new Intent(SignInActivity.this, MainActivity.class);
+            Intent i = new Intent(SignInActivity.this, MainActivityNormal.class);
             startActivity(i);
         }
         etSignInEmail=  findViewById(R.id.etSignInEmail);
@@ -91,7 +91,7 @@ public class SignInActivity extends AppCompatActivity {
                 Toast.makeText(this, "Wrong Email Or Password", Toast.LENGTH_SHORT).show();
             else
             {// ان كان هنالك حساب الايميل والباسورد ننتقل الى الشاشة الرئسيسة
-                Intent i=new Intent(SignInActivity.this,MainActivity.class);
+                Intent i=new Intent(SignInActivity.this, MainActivityNormal.class);
                 startActivity(i);
 //                finish();
 
@@ -133,7 +133,7 @@ public class SignInActivity extends AppCompatActivity {
                     {
                         Toast.makeText(SignInActivity.this, "Signing in", Toast.LENGTH_SHORT).show();
                         //מעבר למסך הראשי
-                        Intent i=new Intent(SignInActivity.this,MainActivity.class);
+                        Intent i=new Intent(SignInActivity.this, MainActivityNormal.class);
                         startActivity(i);
 
                     }

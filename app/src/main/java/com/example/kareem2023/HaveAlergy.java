@@ -20,7 +20,7 @@ public class HaveAlergy extends AppCompatActivity
     }
     public void onClickHaveTryAnother(View V)
     {
-        Intent i = new Intent(HaveAlergy.this, MainActivity.class);
+        Intent i = new Intent(HaveAlergy.this, MainActivityNormal.class);
         startActivity(i);
 
     }

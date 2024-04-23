@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    tools:context=".MainActivity"
+    tools:context=".MainActivityNormal"
     tools:ignore="DuplicateIds">
 
     <LinearLayout
@@ -26,14 +26,14 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btnMainCkCode"
+            android:id="@+id/btnMainNormalCkCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickCheckWithCode"
             android:text="CHECK WITH CODE" />
 
         <Button
-            android:id="@+id/btnMainChkScan"
+            android:id="@+id/btnMainNormalChkScan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onClickCheckWithScan"
@@ -44,7 +44,7 @@
             android:layout_height="391dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabMainAdd"
+            android:id="@+id/fabMainNormalAdd"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:baselineAlignBottom="false"
