@@ -18,11 +18,11 @@ import com.google.firebase.auth.FirebaseAuth;
 /**
  * الشاشة الرئيسية
  */
-public class MainActivityNormal extends AppCompatActivity {
-    private Button btnMainNormalCkScan;
-    private Button btnMainNormalCkCode;
+public class MainActivity extends AppCompatActivity {
+    private Button btnMainCkScan;
+    private Button btnMainCkCode;
 
-    private FloatingActionButton fabMainNormalAdd;
+    private FloatingActionButton fabMainAdd;
 
 
 
@@ -30,32 +30,38 @@ public class MainActivityNormal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity_normal);
-        btnMainNormalCkCode = findViewById(R.id.btnMainNormalCkCode);
-        btnMainNormalCkScan = findViewById(R.id.btnMainNormalChkScan);
-        fabMainNormalAdd = findViewById(R.id.fabMainNormalAdd);
-        fabMainNormalAdd.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.main_activity);
+        btnMainCkCode = findViewById(R.id.btnMainCkCode);
+        btnMainCkScan = findViewById(R.id.btnMainChkScan);
+        fabMainAdd = findViewById(R.id.fabMainAdd);
+        fabMainAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MainActivityNormal.this, AddProduct.class);
+                Intent i = new Intent(MainActivity.this, AddProduct.class);
                 startActivity(i);
 
             }
         });
+
+        final String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        if(email.equals("kareem.samniya@gmail.com")==false)
+        {
+            fabMainAdd.setVisibility(View.GONE);
+        }
 
 
     }
         public void onClickCheckWithCode(View V)
         {
             
-            Intent i = new Intent(MainActivityNormal.this, Code.class);
+            Intent i = new Intent(MainActivity.this, Code.class);
             startActivity(i);
 
         }
         public void onClickCheckWithScan(View V)
         {
 
-            Intent i = new Intent(MainActivityNormal.this, BarcodeScannerActivity.class);
+            Intent i = new Intent(MainActivity.this, BarcodeScannerActivity.class);
             startActivity(i);
 
         }
@@ -93,7 +99,7 @@ public class MainActivityNormal extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i)
             {
                 //
-                Toast.makeText(MainActivityNormal.this, "Signing out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Signing out", Toast.LENGTH_SHORT).show();
                 FirebaseAuth.getInstance().signOut();
                 finish();
             }
@@ -103,7 +109,7 @@ public class MainActivityNormal extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i)
             {
-                Toast.makeText(MainActivityNormal.this, "Signing out", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Signing out", Toast.LENGTH_SHORT).show();
             }
         });
 

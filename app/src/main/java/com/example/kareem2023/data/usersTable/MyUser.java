@@ -22,7 +22,7 @@ public class MyUser
 
         public String id;//מזהה
 
-        public String manager;
+        public Boolean isManager = false;
 
         public long getKeyid() {
             return keyid;
@@ -80,13 +80,15 @@ public class MyUser
             this.id = id;
         }
 
-        public String getManager() {
-            return manager;
+        public Boolean getManager() {
+            return isManager;
         }
 
-        public void setManager(String manager) {
-            this.manager = manager;
+        public void setManager(Boolean manager) {
+            isManager = manager;
         }
+
+
 
         @Override
         public String toString() {
@@ -98,7 +100,7 @@ public class MyUser
                     ", passw='" + passw + '\'' +
                     ", alergy='" + alergy + '\'' +
                     ", id='" + id + '\'' +
-                    ", manager='" + manager + '\'' +
+                    ", manager='" + isManager + '\'' +
                     '}';
         }
     }
