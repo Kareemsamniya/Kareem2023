@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        /**
+         * اذا كان البريد المستخدم للمدير يستطيع اضافة منتجات واذا لم يكن للمدير لا يستطيع الاضافة
+         */
         final String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         if(email.equals("kareem.samniya@gmail.com")==false)
         {

@@ -17,7 +17,7 @@ public interface MyProductQuery
      * الدالة تقوم باعادة جميع الحساسيات
      * @return
      */
-    @Query("SELECT AlergyName FROM MyProduct")
+    @Query("SELECT alergyName FROM MyProduct")
     List<String> getAllAlergieses();
 
     /**
@@ -25,7 +25,7 @@ public interface MyProductQuery
      * @param myAlergy
      * @return
      */
-    @Query("SELECT * FROM MyProduct WHERE AlergyName = :myAlergy")
+    @Query("SELECT * FROM MyProduct WHERE alergyName = :myAlergy")
     MyProduct checkAlergyName(String myAlergy);
 
     /**
@@ -56,10 +56,10 @@ public interface MyProductQuery
     @Delete
     void deleteProduct(MyProduct...tasks);
 
-    @Query("SELECT * FROM MyProduct WHERE Barcode=:Barcode_p")
+    @Query("SELECT * FROM MyProduct WHERE barcode=:Barcode_p")
     List<MyProduct> getProductBySubjId(long Barcode_p);
 
-    @Query("DELETE FROM MyProduct WHERE Barcode=:Barcode")
+    @Query("DELETE FROM MyProduct WHERE barcode=:Barcode")
     void delProductBarcode(long Barcode);
 
 }

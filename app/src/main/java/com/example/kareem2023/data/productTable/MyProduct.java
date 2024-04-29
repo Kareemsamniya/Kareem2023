@@ -9,20 +9,27 @@ import androidx.room.PrimaryKey;
 @Entity
 public class MyProduct {
     @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
-    public long RoomId;//
+    public long roomId;//
     /**رقم المنتج
      * 
      */
     public String id;//
     public String uid;//
-    public String Barcode;//الباركود للمنتج
-    public String ProductName;//اسم المنتج
-    public String CompanyName;//اسم شركة المنتج
-    public String AlergyName;//اسم الحساسية
+    public String barcode;//الباركود للمنتج
+    public String productName;//اسم المنتج
+    public String companyName;//اسم شركة المنتج
+    public String alergyName;//اسم الحساسية
     //todo do ait later when
 
     public String isApproved;
 
+    public long getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(long roomId) {
+        this.roomId = roomId;
+    }
 
     public String getId() {
         return id;
@@ -41,46 +48,56 @@ public class MyProduct {
     }
 
     public String getBarcode() {
-        return Barcode;
+        return barcode;
     }
 
     public void setBarcode(String barcode) {
-        Barcode = barcode;
+        this.barcode = barcode;
     }
 
     public String getProductName() {
-        return ProductName;
+        return productName;
     }
 
     public void setProductName(String productName) {
-        ProductName = productName;
+        this.productName = productName;
     }
 
     public String getCompanyName() {
-        return CompanyName;
+        return companyName;
     }
 
     public void setCompanyName(String companyName) {
-        CompanyName = companyName;
+        this.companyName = companyName;
     }
 
     public String getAlergyName() {
-        return AlergyName;
+        return alergyName;
     }
 
     public void setAlergyName(String alergyName) {
-        AlergyName = alergyName;
+        this.alergyName = alergyName;
+    }
+
+    public String getIsApproved() {
+        return isApproved;
+    }
+
+    public void setIsApproved(String isApproved) {
+        this.isApproved = isApproved;
     }
 
     @Override
     public String toString() {
         return "MyProduct{" +
-                "id='" + id + '\'' +
+                "roomId=" + roomId +
+                ", id='" + id + '\'' +
                 ", uid='" + uid + '\'' +
-                ", Barcode='" + Barcode + '\'' +
-                ", ProductName='" + ProductName + '\'' +
-                ", CompanyName='" + CompanyName + '\'' +
-                ", AlergyName='" + AlergyName + '\'' +
+                ", barcode='" + barcode + '\'' +
+                ", productName='" + productName + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", alergyName='" + alergyName + '\'' +
+                ", isApproved='" + isApproved + '\'' +
                 '}';
     }
 }

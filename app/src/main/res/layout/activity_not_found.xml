@@ -30,7 +30,7 @@
             android:id="@+id/btnAddProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="onClickAddProduct"
+            android:onClick="onClickNotFoundTryAnother"
             android:text="ADD PRODUCT" />
     </LinearLayout>
 </RelativeLayout>

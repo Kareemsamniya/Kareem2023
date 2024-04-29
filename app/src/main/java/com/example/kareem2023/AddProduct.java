@@ -3,7 +3,6 @@ package com.example.kareem2023;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -52,12 +51,16 @@ public class AddProduct extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent i = new Intent(AddProduct.this, MainActivity.class);
-                startActivity(i);
+                checkAddProduct_FB();
+
             }
         });
         initAutoEtSubjects();
     }
+
+
+
+
     /**
      * استخراج اسماء المواضيع من جدول الحساسيات وعرضه بالحقل من نوع
      * AutoCompleteTextView
@@ -127,7 +130,7 @@ public class AddProduct extends AppCompatActivity {
             if(productQuery.checkAlergyName(ProductAlergy)==null)// فحص هل الموضوع موجود من قبل بالجدول
             {// بناء موضوع جديد واضافته
                 MyProduct product=new MyProduct();
-                product.AlergyName=ProductAlergy;
+                product.alergyName =ProductAlergy;
                 productQuery.insert(product);
             }
             //استخراج المنتج لاننا بحاجة لرقمه التسلسلي id
@@ -135,9 +138,9 @@ public class AddProduct extends AppCompatActivity {
             //بناء منتج جديد وتحديد صفاته
             MyProduct Product = new MyProduct();
             //تجديد قيم الصفات بالقيم التي استخرجناها
-            Product.ProductName=ProductName;
-            Product.CompanyName=CompanyName;
-            Product.Barcode= Barcode;
+            Product.productName =ProductName;
+            Product.companyName =CompanyName;
+            Product.barcode = Barcode;
             Product.id=product.getId();// تحديد رقم المنتج للمهمة
             db.getMyProductQuery().insertProduct(Product);// اضافة المنتج للجدول
             finish();//اغلاق الشاشة الخالية
@@ -145,6 +148,7 @@ public class AddProduct extends AppCompatActivity {
         }
     }
     private void checkAddProduct_FB() {
+
         boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
         //استخراج النص من حقل اسم المنتج
         String ProductName = etAddProductProductName.getText().toString();
