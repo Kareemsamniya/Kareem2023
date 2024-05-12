@@ -53,8 +53,7 @@ version
          */
         public static AppDatabase getDB(Context context) {
             if (db == null) {
-                db = Room.databaseBuilder(context,
-                                AppDatabase.class, "database-name")//اسم
+                db = Room.databaseBuilder(context, AppDatabase.class, "database-name")//اسم الكائن
                         .fallbackToDestructiveMigration()
                         .allowMainThreadQueries()
                         .build();

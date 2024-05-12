@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:minHeight="48dp"
             android:onClick="onClickHaventTryAnother"
             android:text="TRY ANOTHER PRODUCT"
             android:textSize="18sp" />

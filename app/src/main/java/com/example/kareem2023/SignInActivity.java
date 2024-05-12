@@ -29,18 +29,23 @@ public class SignInActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        etSignInEmail=  findViewById(R.id.etSignInEmail);
+        etSignInPassword=  findViewById(R.id.etSignInPassword);
+        btnSignInSignIn=  findViewById(R.id.btnSignInSignIn);
+        btnSignInSignUp= findViewById(R.id.btnSignInSignUp);
+
+        /**
+         * اذا كنت مسجل الدخول مسبقا ولم تقم بتسجيل الخروج سوف يدخلك بدون اعادة تسجيل الدخول
+         */
         if(FirebaseAuth.getInstance().getCurrentUser()!= null)
         {
             Intent i = new Intent(SignInActivity.this, MainActivity.class);
             startActivity(i);
         }
-        etSignInEmail=  findViewById(R.id.etSignInEmail);
-        etSignInPassword=  findViewById(R.id.etSignInPassword);
-        btnSignInSignIn=  findViewById(R.id.btnSignInSignIn);
-        btnSignInSignUp= findViewById(R.id.btnSignInSignUp);
 
 
 
@@ -53,11 +58,13 @@ public class SignInActivity extends AppCompatActivity {
         startActivity(i);
 
     }
+
     public void onClickSignIn(View V)
     {
 
         checkEmailPassw_FB();
     }
+
     private void checkSignIn()
     {
         boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
@@ -96,13 +103,12 @@ public class SignInActivity extends AppCompatActivity {
 //                finish();
 
             }
-
-
         }
-
-
     }
 
+    /**
+     * دالة تقوم بفحص الايميل والباسوورد اذا مسجلة بقاعدة البيانات من قبل لتستطسع تسجبل الدخول وان لم تكن يجب عليك انشاء حساب وايضا تقوم بالفحص اذا كان حساب المدير ام لا
+     */
     private void checkEmailPassw_FB()
     {
         boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة

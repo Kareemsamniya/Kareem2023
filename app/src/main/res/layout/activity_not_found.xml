@@ -22,15 +22,10 @@
             android:id="@+id/btnNotFoundTry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:onClick="onClickNotFoundTryAnother"
             android:text="TRY ANOTHER PRODUCT"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/btnAddProduct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClickNotFoundTryAnother"
-            android:text="ADD PRODUCT" />
     </LinearLayout>
 </RelativeLayout>

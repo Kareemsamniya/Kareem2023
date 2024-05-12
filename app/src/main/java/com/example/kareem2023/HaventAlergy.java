@@ -18,6 +18,11 @@ public class HaventAlergy extends AppCompatActivity  {
         btnHaventTry = findViewById(R.id.btnHaventTry);
 
     }
+
+    /**
+     *      اذا لم يكن موجود المنتج يقوم بالضعط على "TRY ANOTHER PRODUCT" وتعود الى القائمة الرئيسية
+     * @param V
+     */
     public void onClickHaventTryAnother(View V)
     {
         Intent i = new Intent(HaventAlergy.this, MainActivity.class);

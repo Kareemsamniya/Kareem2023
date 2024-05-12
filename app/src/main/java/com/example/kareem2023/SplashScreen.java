@@ -10,8 +10,15 @@ import androidx.appcompat.app.AppCompatActivity;
 public class SplashScreen extends AppCompatActivity {
 
     private TextView etSplashWelcome;
+
+
+    /**
+     * شاشط الانتظار تقوم بعرض هذع الشاشط عند فتح البرنامج لمدة ثلث ثواني وبعدها الانتقال الى الشاشة الرئيسية
+     * @param savedInstanceState
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         etSplashWelcome= findViewById(R.id.etSplashWelcome);

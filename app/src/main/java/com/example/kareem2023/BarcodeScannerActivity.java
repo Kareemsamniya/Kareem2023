@@ -19,7 +19,8 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
-public class BarcodeScannerActivity extends AppCompatActivity {
+public class BarcodeScannerActivity extends AppCompatActivity
+{
     private SurfaceView surfaceView;
     private BarcodeDetector barcodeDetector;
     private CameraSource cameraSource;
@@ -30,7 +31,8 @@ public class BarcodeScannerActivity extends AppCompatActivity {
     private String barcodeData;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_barcode_scanner);
         toneGen1 = new ToneGenerator(AudioManager.STREAM_MUSIC, 100);

@@ -19,22 +19,29 @@ import com.google.firebase.auth.FirebaseAuth;
  * الشاشة الرئيسية
  */
 public class MainActivity extends AppCompatActivity {
+
+
+
     private Button btnMainCkScan;
     private Button btnMainCkCode;
-
     private FloatingActionButton fabMainAdd;
 
 
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         btnMainCkCode = findViewById(R.id.btnMainCkCode);
         btnMainCkScan = findViewById(R.id.btnMainChkScan);
         fabMainAdd = findViewById(R.id.fabMainAdd);
-        fabMainAdd.setOnClickListener(new View.OnClickListener() {
+        /**
+         * هذه الدالة اذا قمت بالضعط على اشارة الزائد لأضافة منتج الى صفحط اضافة المنتجات (هذه الصفحة مخصصة فقط للمدير)
+         */
+        fabMainAdd.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, AddProduct.class);
@@ -42,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
         /**
          * اذا كان البريد المستخدم للمدير يستطيع اضافة منتجات واذا لم يكن للمدير لا يستطيع الاضافة
          */
@@ -53,20 +61,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-        public void onClickCheckWithCode(View V)
-        {
+
+    public void onClickCheckWithCode(View V)
+    {
             
-            Intent i = new Intent(MainActivity.this, Code.class);
-            startActivity(i);
+        Intent i = new Intent(MainActivity.this, Code.class);
+        startActivity(i);
 
-        }
-        public void onClickCheckWithScan(View V)
-        {
+    }
+    public void onClickCheckWithScan(View V)
+    {
 
-            Intent i = new Intent(MainActivity.this, BarcodeScannerActivity.class);
-            startActivity(i);
+        Intent i = new Intent(MainActivity.this, BarcodeScannerActivity.class);
+        startActivity(i);
 
-        }
+    }
 
     @Override//بناء القائمة
     public boolean onCreateOptionsMenu(Menu menu)
@@ -74,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
+
     @Override//معالجة حدث اختيار عنصر من القائمة
     public boolean onOptionsItemSelected(MenuItem item)
     {

@@ -13,14 +13,31 @@ public class MyUser
         @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
         public long keyid;
         @ColumnInfo(name = "full_Name")//اعطاء اسم جديد للعامود-الصفة في الجدول
-        public String fullName;//الاسم الشخصي
+        public String fullName;
+        /**
+         * الاسم الشخصي
+         */
         //بحالة لم يتم اعطاء اسم للعامود يكون اسم الصفه هو اسم العامود
-        public String email;//حساب الجيميل الشخصي
-        public String phone;//رقم الهاتف الشخصي
-        public String passw;//الرقم السري
-        public String alergy;//اسم الحساسية
-
-        public String id;//מזהה
+        public String email;
+        /**
+         * حساب الجيميل الشخصي
+         */
+        public String phone;
+        /**
+         * رقم الهاتف الشخصي
+         */
+        public String passw;
+        /**
+         * الرقم السري
+         */
+        public String alergy;
+        /**
+         * اسم الحساسية
+         */
+        public String id;
+        /**
+         * מזהה
+         */
 
         public Boolean isManager = false;
 

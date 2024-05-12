@@ -3,6 +3,7 @@ package com.example.kareem2023;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -40,14 +41,18 @@ public class AddProduct extends AppCompatActivity {
         btnAddProductScan = findViewById(R.id.btnAddProductSaveProduct);
         btnAddProductCancelProduct = findViewById(R.id.btnAddProductCancelProduct);
         btnAddProductSaveProduct = findViewById(R.id.btnAddProductSaveProduct);
-        btnAddProductCancelProduct.setOnClickListener(new View.OnClickListener() {
+
+        btnAddProductCancelProduct.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view)
             {
                 finish();
             }
         });
-        btnAddProductSaveProduct.setOnClickListener(new View.OnClickListener() {
+
+        btnAddProductSaveProduct.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view)
             {
@@ -58,7 +63,11 @@ public class AddProduct extends AppCompatActivity {
         initAutoEtSubjects();
     }
 
-
+//    public void onClickAddProduct(View V)
+//    {
+//
+//        checkAddProduct_FB();
+//    }
 
 
     /**
@@ -89,7 +98,8 @@ public class AddProduct extends AppCompatActivity {
     }
 
 
-    private void checkAddProduct() {
+    private void checkAddProduct()
+    {
         boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
         //استخراج النص من حقل اسم المنتج
         String ProductName = etAddProductProductName.getText().toString();
@@ -147,8 +157,12 @@ public class AddProduct extends AppCompatActivity {
 
         }
     }
-    private void checkAddProduct_FB() {
 
+    /**
+     * عملية تقوم بأستقبال المعطيات وفحصها
+     */
+    private void checkAddProduct_FB()
+    {
         boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
         //استخراج النص من حقل اسم المنتج
         String ProductName = etAddProductProductName.getText().toString();
@@ -179,12 +193,22 @@ public class AddProduct extends AppCompatActivity {
         {
             isAllOk = false;
             autoEtAddProductAlergy.setError("Wrong Product Alergy");
+
         }
         if(isAllOk)
         {
             saveProduct_FB(ProductName,CompanyName,Barcode,ProductAlergy);
         }
     }
+
+    /**
+     * دالة تقوم باتخراج المعطيات وبناء كائن واضافته لمجموعة ال Products قي قاعدة البيانات FireStore
+     * @param ProductName
+     * @param CompanyName
+     * @param Barcode
+     * @param ProductAlergy
+     */
+
     private void saveProduct_FB(String ProductName, String CompanyName, String Barcode,String ProductAlergy)
     {
         //مؤشر لقاعدة البيانات
@@ -204,7 +228,7 @@ public class AddProduct extends AppCompatActivity {
         //اضافة كائن "لمجموعة" المنتجات ومعالج حدث لفحص نجاح المطلوب
         //معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
         db.collection("MyProducts").document(id).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
-            //دلبة معلبج لبحدث
+            //دالة معالج لبحدث
             @Override
             public void onComplete(@NonNull Task<Void> task)
             {

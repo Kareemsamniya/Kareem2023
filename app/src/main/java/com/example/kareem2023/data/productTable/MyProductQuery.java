@@ -36,7 +36,7 @@ public interface MyProductQuery
     void insertProduct(MyProduct...t); //ثلث نقاط تعني ادخال مجموعة
 
     /**
-     * الدالة تضيف الى الجدول
+     * الدالة تضيف كائن الى الجدول
      * @param myProduct
      */
     @Insert

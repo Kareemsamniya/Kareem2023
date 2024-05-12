@@ -13,12 +13,28 @@ public class MyProduct {
     /**رقم المنتج
      * 
      */
-    public String id;//
-    public String uid;//
-    public String barcode;//الباركود للمنتج
-    public String productName;//اسم المنتج
-    public String companyName;//اسم شركة المنتج
-    public String alergyName;//اسم الحساسية
+    public String id;
+    /**
+     * رقم المنتج
+     */
+    public String uid;
+
+    public String barcode;
+    /**
+     * الباركود للمنتج
+     */
+    public String productName;
+    /**
+     * اسم المنتج
+     */
+    public String companyName;
+    /**
+     * اسم شركة المنتج
+     */
+    public String alergyName;
+    /**
+     * اسم الحساسية
+     */
     //todo do ait later when
 
     public String isApproved;
