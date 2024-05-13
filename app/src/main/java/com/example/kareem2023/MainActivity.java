@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -75,43 +77,53 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        readProductFrom_FB();
+    }
 
     /**
      *  קריאת נתונים ממסד הנתונים firestore
      * @return .... רשימת הנתונים שנקראה ממסד הנתונים
      */
-    public ArrayList<MyProduct> readTaskFrom_FB()
+    public void readProductFrom_FB()
     {
         //בניית רשימה ריקה
         ArrayList<MyProduct> arrayList =new ArrayList<>();
         //קבלת הפנייה למסד הנתונים
         FirebaseFirestore ffRef = FirebaseFirestore.getInstance();
         //קישור לקבוצה לקבוצה שרוצים לקרוא
-        ffRef.collection("MyProducts").
-                document(FirebaseAuth.getInstance().getUid()).
-                collection("products").
-                document(lstProducts.getSelectedItem().toString()).
+        ffRef.collection("MyProducts")
+
                 //הוספת מאזין לקריאת הנתונים
-                        collection("Products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     /**
                      * תגובה לאירוע השלמת קריאת הנתונים
                      * @param task הנתונים שהתקבלו מענן מסד הנתונים
                      */
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful())// אם בקשת הנתונים התקבלה בהצלחה
+                        if(task.isSuccessful()) {// אם בקשת הנתונים התקבלה בהצלחה
                             //מעבר על כל ה״מסמכים״= עצמים והוספתם למבנה הנתונים
-                            for (DocumentSnapshot document : task.getResult().getDocuments())
-                            {
+                            arrayList.clear();
+                            productsAdapter.clear();
+                            for (DocumentSnapshot document : task.getResult().getDocuments()) {
                                 //המרת העצם לטיפוס שלו// הוספת העצם למבנה הנתונים
                                 arrayList.add(document.toObject(MyProduct.class));
                             }
+                            productsAdapter.addAll(arrayList);
+                            ArrayAdapter<MyProduct>tsksAdapter=new ArrayAdapter<MyProduct>(MainActivity.this, android.R.layout.simple_dropdown_item_1line);
+                           tsksAdapter.addAll(arrayList);
+                            lstProducts.setAdapter(tsksAdapter);
+                        }
+
                         else{
                             Toast.makeText(MainActivity.this, "Error Reading data"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-        return arrayList;
+
     }
 
 

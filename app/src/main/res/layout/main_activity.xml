@@ -9,6 +9,17 @@
     tools:context=".MainActivity"
     tools:ignore="DuplicateIds">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabMainAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:baselineAlignBottom="false"
+        android:clickable="false"
+        android:src="@android:drawable/ic_input_add"
+        tools:ignore="SpeakableTextPresentCheck" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,17 +53,9 @@
         <ListView
             android:id="@+id/lstvProducts"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabMainAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:baselineAlignBottom="false"
-            android:clickable="false"
-            android:src="@android:drawable/ic_input_add"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_height="match_parent" />
 
 
     </LinearLayout>
+
 </RelativeLayout>

@@ -40,8 +40,8 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
     {
 //בניית הפריט הגרפי מתו קובץ העיצוב
         View vitem= convertView;
-        if(vitem==null)
-            vitem= LayoutInflater.from(getContext()).inflate(itemLayout,parent,false);
+
+        vitem= LayoutInflater.from(getContext()).inflate(R.layout.myproduct_item_layout,parent,false);
         //קבלת הפניות לרכיבים בקובץ העיצוב
         ImageView imageView=vitem.findViewById(R.id.imgVitm);
         TextView tvitmName=vitem.findViewById(R.id.tvitmName);
