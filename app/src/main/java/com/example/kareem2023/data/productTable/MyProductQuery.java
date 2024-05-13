@@ -61,5 +61,4 @@ public interface MyProductQuery
 
     @Query("DELETE FROM MyProduct WHERE barcode=:Barcode")
     void delProductBarcode(long Barcode);
-
 }

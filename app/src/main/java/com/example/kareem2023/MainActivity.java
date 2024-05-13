@@ -7,26 +7,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.kareem2023.data.productTable.MyProduct;
+import com.example.kareem2023.data.productTable.MyProductAdapter;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 /**
  * الشاشة الرئيسية
  */
-public class MainActivity extends AppCompatActivity {
-
-
+public class MainActivity extends AppCompatActivity
+{
 
     private Button btnMainCkScan;
     private Button btnMainCkCode;
     private FloatingActionButton fabMainAdd;
-
-
+    private ListView lstProducts;
+    private MyProductAdapter productsAdapter;
 
 
     @Override
@@ -34,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+        lstProducts = findViewById(R.id.lstvProducts);//הפניה לרכיב הגרפי שמציג אוסף
+        productsAdapter = new MyProductAdapter(this,R.layout.myproduct_item_layout);//בניית המתאם
+        lstProducts.setAdapter(productsAdapter);//קישור המתאם עם המציג הגרפי לאוסף
         btnMainCkCode = findViewById(R.id.btnMainCkCode);
         btnMainCkScan = findViewById(R.id.btnMainChkScan);
         fabMainAdd = findViewById(R.id.fabMainAdd);
@@ -61,6 +74,47 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+    /**
+     *  קריאת נתונים ממסד הנתונים firestore
+     * @return .... רשימת הנתונים שנקראה ממסד הנתונים
+     */
+    public ArrayList<MyProduct> readTaskFrom_FB()
+    {
+        //בניית רשימה ריקה
+        ArrayList<MyProduct> arrayList =new ArrayList<>();
+        //קבלת הפנייה למסד הנתונים
+        FirebaseFirestore ffRef = FirebaseFirestore.getInstance();
+        //קישור לקבוצה לקבוצה שרוצים לקרוא
+        ffRef.collection("MyProducts").
+                document(FirebaseAuth.getInstance().getUid()).
+                collection("products").
+                document(lstProducts.getSelectedItem().toString()).
+                //הוספת מאזין לקריאת הנתונים
+                        collection("Products").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    /**
+                     * תגובה לאירוע השלמת קריאת הנתונים
+                     * @param task הנתונים שהתקבלו מענן מסד הנתונים
+                     */
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful())// אם בקשת הנתונים התקבלה בהצלחה
+                            //מעבר על כל ה״מסמכים״= עצמים והוספתם למבנה הנתונים
+                            for (DocumentSnapshot document : task.getResult().getDocuments())
+                            {
+                                //המרת העצם לטיפוס שלו// הוספת העצם למבנה הנתונים
+                                arrayList.add(document.toObject(MyProduct.class));
+                            }
+                        else{
+                            Toast.makeText(MainActivity.this, "Error Reading data"+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+        return arrayList;
+    }
+
+
 
     public void onClickCheckWithCode(View V)
     {
