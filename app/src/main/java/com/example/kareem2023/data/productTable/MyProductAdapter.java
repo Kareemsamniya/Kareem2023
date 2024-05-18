@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -48,6 +49,9 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
         TextView tvitmCompany=vitem.findViewById(R.id.tvitmCompany);
         TextView tvitmBarcode=vitem.findViewById(R.id.tvitmBarcode);
         TextView tvitmAlergies=vitem.findViewById(R.id.tvitmAlergies);
+        ImageButton imgBtnDelete=vitem.findViewById(R.id.imgBtnDelete);
+        ImageButton imgBtnEdit=vitem.findViewById(R.id.imgBtnEdit);
+
 
         //קבלת הנתון (עצם) הנוכחי
         MyProduct current=getItem(position);

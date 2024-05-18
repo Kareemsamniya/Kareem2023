@@ -17,8 +17,8 @@
 
             <ImageView
                 android:id="@+id/imgVitm"
-                android:layout_width="263dp"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="125dp"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <LinearLayout
@@ -56,18 +56,20 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/imageButton"
+                        android:id="@+id/imgBtnDelete"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:srcCompat="@android:drawable/ic_delete" />
+                        app:srcCompat="@android:drawable/ic_delete"
+                        tools:ignore="SpeakableTextPresentCheck" />
 
                     <ImageButton
-                        android:id="@+id/imageButton2"
+                        android:id="@+id/imgBtnEdit"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="51dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/car_ui_icon_edit" />
+                        app:srcCompat="@drawable/car_ui_icon_edit"
+                        tools:ignore="SpeakableTextPresentCheck" />
                 </LinearLayout>
 
             </LinearLayout>
