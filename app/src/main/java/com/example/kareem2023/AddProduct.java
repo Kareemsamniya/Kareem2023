@@ -24,8 +24,8 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.OnProgressListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -50,7 +50,7 @@ public class AddProduct extends AppCompatActivity {
     private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
     private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלאה
 
-    private MyProduct product;//עצם/נתון שרוצים לשמור
+    private  MyProduct product = new MyProduct();//עצם/נתון שרוצים לשמור
 
 
 
@@ -204,8 +204,8 @@ public class AddProduct extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Uri> task) {
                                         downladuri = task.getResult();
                                         Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
-                                        MyProduct.setImage(downladuri.toString());//עדכון כתובת התמונה שהועלתה
-                                        checkAddProduct_FB();
+                                        product.setImage(downladuri.toString());//עדכון כתובת התמונה שהועלתה
+                                       saveProduct_FB();
                                     }
                                 });
                             } else {
@@ -225,7 +225,7 @@ public class AddProduct extends AppCompatActivity {
                         }
                     });
         } else {
-            checkAddProduct_FB();
+          saveProduct_FB();
         }
     }
 
@@ -365,9 +365,19 @@ public class AddProduct extends AppCompatActivity {
         }
         if(isAllOk)
         {
-            saveProduct_FB(ProductName,CompanyName,Barcode,ProductAlergy);
+            //بناء الكائن الذي سيتم حفظه
+            product.setProductName(ProductName);
+            product.setCompanyName(CompanyName);
+            product.setBarcode(Barcode);
+            product.setAlergyName(ProductAlergy);
+            //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل "دوكيومنت"
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            product.setUid(uid);
+                uploadImage(toUploadimageUri);
+
         }
-    }
+        }
+
 
 //    /**
 //     * دالة تقوم باتخراج المعطيات وبناء كائن واضافته لمجموعة ال Products قي قاعدة البيانات FireStore
@@ -425,20 +435,13 @@ public class AddProduct extends AppCompatActivity {
 //
 
 
-    private void saveProduct_FB(String ProductName, String CompanyName, String Barcode,String ProductAlergy)
+    private void saveProduct_FB()
     {
         //مؤشر لقاعدة البيانات
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        //استخراج الرقم المميز للمستعمل الذي سجل الدخول لاستعماله كاسم لل "دوكيومنت"
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //بناء الكائن الذي سيتم حفظه
-        MyProduct product = new MyProduct();
-        product.setProductName(ProductName);
-        product.setCompanyName(CompanyName);
-        product.setBarcode(Barcode);
-        product.setAlergyName(ProductAlergy);
-        product.setUid(uid);
-        uploadImage(toUploadimageUri);
+
+
+
         //استخراج رقم مميز للكائن المخزون بقاعدة البيانات
         final String id = db.collection("MyProducts").document().getId();
         product.setId(id);
