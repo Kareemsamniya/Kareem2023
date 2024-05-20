@@ -117,15 +117,11 @@ public class MyProduct {
     @Override
     public String toString() {
         return "MyProduct{" +
-                "roomId=" + roomId +
-                ", id='" + id + '\'' +
-                ", uid='" + uid + '\'' +
+
                 ", barcode='" + barcode + '\'' +
                 ", productName='" + productName + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", alergyName='" + alergyName + '\'' +
-                ", image='" + image + '\'' +
-                ", isApproved='" + isApproved + '\'' +
                 '}';
     }
 }

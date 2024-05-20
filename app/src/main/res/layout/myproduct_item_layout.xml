@@ -70,6 +70,13 @@
                         android:layout_weight="1"
                         app:srcCompat="@drawable/car_ui_icon_edit"
                         tools:ignore="SpeakableTextPresentCheck" />
+
+                    <ImageButton
+                        android:id="@+id/imgBtnShare"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        app:srcCompat="@android:drawable/ic_menu_share" />
                 </LinearLayout>
 
             </LinearLayout>

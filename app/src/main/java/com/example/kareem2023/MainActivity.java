@@ -136,12 +136,7 @@ public class MainActivity extends AppCompatActivity
         //קבלת הפנייה למסד הנתונים
         FirebaseFirestore ffRef = FirebaseFirestore.getInstance();
         //קישור לקבוצה collection שרוצים לקרוא
-        ffRef.collection("MyProducts").
-                document(FirebaseAuth.getInstance().getUid()).
-                collection("subjects").
-                document(lstProducts.getSelectedItem().toString()).
-                //הוספת מאזין לקריאת הנתונים
-                        collection("Tasks").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        ffRef.collection("MyProducts").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     /**
                      * תגובה לאירוע השלמת קריאת הנתונים
                      *
