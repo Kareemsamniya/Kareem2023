@@ -3,11 +3,16 @@ package com.example.kareem2023;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.kareem2023.data.AppDatabase;
@@ -17,7 +22,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.OnProgressListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.UUID;
 
 public class AddProduct extends AppCompatActivity {
     private TextInputEditText etAddProductProductName;
@@ -28,6 +40,19 @@ public class AddProduct extends AppCompatActivity {
     private Button btnAddProductScan;
     private Button btnAddProductCancelProduct;
     private Button btnAddProductSaveProduct;
+
+    //upload: 1 add Xml image view or button and upload button
+//upload: 2 add next fileds
+    private final int IMAGE_PICK_CODE=100;// קוד מזהה לבקשת בחירת תמונה
+    private final int PERMISSION_CODE=101;//קוד מזהה לבחירת הרשאת גישה לקבצים
+    private ImageButton imgBtnl;//כפתור/ לחצן לבחירת תמונה והצגתה
+    private Button btnUpload;// לחצן לביצוע העלאת התמונה
+    private Uri toUploadimageUri;// כתוב הקובץ(תמונה) שרוצים להעלות
+    private Uri downladuri;//כתובת הקוץ בענן אחרי ההעלאה
+
+    private MyProduct product;//עצם/נתון שרוצים לשמור
+
+
 
 
     @Override
@@ -41,6 +66,18 @@ public class AddProduct extends AppCompatActivity {
         btnAddProductScan = findViewById(R.id.btnAddProductSaveProduct);
         btnAddProductCancelProduct = findViewById(R.id.btnAddProductCancelProduct);
         btnAddProductSaveProduct = findViewById(R.id.btnAddProductSaveProduct);
+
+//upload: 3
+        imgBtnl=findViewById(R.id.imgBtnProductn);
+        imgBtnl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                checkPermission();
+
+            }
+        });
+
 
         btnAddProductCancelProduct.setOnClickListener(new View.OnClickListener()
         {
@@ -62,6 +99,137 @@ public class AddProduct extends AppCompatActivity {
         });
         initAutoEtSubjects();
     }
+
+
+
+    private void pickImageFromGallery(){
+        //implicit intent (מרומז) to pick image
+        Intent intent=new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent,IMAGE_PICK_CODE);//הפעלתה האינטנט עם קוד הבקשה
+    }
+
+
+
+//upload: 5:handle result of picked images
+    /**
+     *
+     * @param requestCode מספר הקשה
+     * @param resultCode תוצאה הבקשה (אם נבחר משהו או בוטלה)
+     * @param data הנתונים שנבחרו
+     */
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        //אם נבחר משהו ואם זה קוד בקשת התמונה
+        if (resultCode==RESULT_OK && requestCode== IMAGE_PICK_CODE){
+            //a עידכון תכונת כתובת התמונה
+            toUploadimageUri = data.getData();//קבלת כתובת התמונה הנתונים שניבחרו
+            imgBtnl.setImageURI(toUploadimageUri);// הצגת התמונה שנבחרה על רכיב התמונה
+        }
+    }
+
+
+    //upload: 6
+    /**
+     * בדיקה האם יש הרשאה לגישה לקבצים בטלפון
+     */
+    private void checkPermission()
+    {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//בדיקת גרסאות
+            //בדיקה אם ההשאה לא אושרה בעבר
+            if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+                //רשימת ההרשאות שרוצים לבקש אישור
+                String[] permissions = {android.Manifest.permission.READ_EXTERNAL_STORAGE};
+                //בקשת אישור ההשאות (שולחים קוד הבקשה)
+                //התשובה תתקבל בפעולה onRequestPermissionsResult
+                requestPermissions(permissions, PERMISSION_CODE);
+            } else {
+                //permission already granted אם יש הרשאה מקודם אז מפעילים בחירת תמונה מהטלפון
+                pickImageFromGallery();
+            }
+        }
+        else {//אם גרסה ישנה ולא צריך קבלת אישור
+            pickImageFromGallery();
+        }
+    }
+
+
+//upload: 7
+    /**
+     * @param requestCode The request code passed in מספר בקשת ההרשאה
+     * @param permissions The requested permissions. Never null. רשימת ההרשאות לאישור
+     * @param grantResults The grant results for the corresponding permissions תוצאה עבור כל הרשאה
+     *   PERMISSION_GRANTED אושר or PERMISSION_DENIED נדחה . Never null.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode==PERMISSION_CODE) {//בדיקת קוד בקשת ההרשאה
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                //permission was granted אם יש אישור
+                pickImageFromGallery();
+            } else {
+                //permission was denied אם אין אישור
+                Toast.makeText(this, "Permission denied...!", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+    }
+
+
+
+    private void uploadImage(Uri filePath) {
+        if (filePath != null) {
+            //יצירת דיאלוג התקדמות
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Uploading...");
+            progressDialog.show();//הצגת הדיאלוג
+            //קבלת כתובת האחסון בענן
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference storageReference = storage.getReference();
+            //יצירת תיקיה ושם גלובלי לקובץ
+            final StorageReference ref = storageReference.child("images/" + UUID.randomUUID().toString());
+            // יצירת ״תהליך מקביל״ להעלאת תמונה
+            ref.putFile(filePath)
+                    //הוספת מאזין למצב ההעלאה
+                    .addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                progressDialog.dismiss();// הסתרת הדיאלוג
+                                //קבלת כתובת הקובץ שהועלה
+                                ref.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Uri> task) {
+                                        downladuri = task.getResult();
+                                        Toast.makeText(getApplicationContext(), "Uploaded", Toast.LENGTH_SHORT).show();
+                                        MyProduct.setImage(downladuri.toString());//עדכון כתובת התמונה שהועלתה
+                                        checkAddProduct_FB();
+                                    }
+                                });
+                            } else {
+                                progressDialog.dismiss();//הסתרת הדיאלוג
+                                Toast.makeText(getApplicationContext(), "Failed " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    })
+                    //הוספת מאזין שמציג מהו אחוז ההעלאה
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            //חישוב מה הגודל שהועלה
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()/ taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                        }
+                    });
+        } else {
+            checkAddProduct_FB();
+        }
+    }
+
+
 
 //    public void onClickAddProduct(View V)
 //    {
@@ -201,13 +369,61 @@ public class AddProduct extends AppCompatActivity {
         }
     }
 
-    /**
-     * دالة تقوم باتخراج المعطيات وبناء كائن واضافته لمجموعة ال Products قي قاعدة البيانات FireStore
-     * @param ProductName
-     * @param CompanyName
-     * @param Barcode
-     * @param ProductAlergy
-     */
+//    /**
+//     * دالة تقوم باتخراج المعطيات وبناء كائن واضافته لمجموعة ال Products قي قاعدة البيانات FireStore
+//     * @param ProductName
+//     * @param CompanyName
+//     * @param Barcode
+//     * @param ProductAlergy
+//     */
+//
+//    private void saveProduct() {
+//        //קבלת הפניה למסד הניתונים
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        //קבלת מזהה המשתמש שנכנס לאפליקציה
+//        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+//        //קבלת קישור לאוסף המקצועות שנמצא במסמך המשתמש-לפי המזהה שלו-
+//        CollectionReference subjCollection = db.collection("MyProducts")
+//                .document(uid)
+//                .collection("products");
+//        String sbjId = subjCollection.document().getId();//  לקבל מזהה ייחודי למסמך החדש
+//
+//
+//        subject.id = sbjId;
+//        subject.userId = uid;
+//        //הוספת מקצוע לאוסף המקצועות (מזהה המקצוע הוא השם שלו)
+//        //הוספת מאזין שבודק אם ההוספה הצליחה
+//        subjCollection.document(subject.title).set(subject).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//                    //אם ההוספה של המקצוע הצליחה מוסיפים משימה למקצוע
+//                    //קבלת קישור/כתובת לאוסף המשימות
+//                    CollectionReference tasksCollection = subjCollection.document(subject.title).collection("Tasks");
+//                    // קבלת מזהה למסמך החדש
+//                    String taskId = tasksCollection.document().getId();
+//                    myTask.id = taskId;//עידכון תכונת המזהה של המשימה
+//                    // הוספת (מסמך) המשימה לאוסף המשימות
+//                    //הוספת המאזין לבדיקת הצלחת ההוספה
+//                    tasksCollection.document(taskId).set(myTask).addOnCompleteListener(new OnCompleteListener<Void>(){
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()) {
+//                                Toast.makeText(AddTaskActivity.this, "Adding myTask Succeeded", Toast.LENGTH_SHORT).show();
+//                                finish();
+//                            } else {
+//                                Toast.makeText(AddTaskActivity.this, "Adding myTask failed" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//                } else {
+//                    Toast.makeText(AddTaskActivity.this, "Adding mySubject failed" + task.getException().toString(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
+//
+
 
     private void saveProduct_FB(String ProductName, String CompanyName, String Barcode,String ProductAlergy)
     {
@@ -222,6 +438,7 @@ public class AddProduct extends AppCompatActivity {
         product.setBarcode(Barcode);
         product.setAlergyName(ProductAlergy);
         product.setUid(uid);
+        uploadImage(toUploadimageUri);
         //استخراج رقم مميز للكائن المخزون بقاعدة البيانات
         final String id = db.collection("MyProducts").document().getId();
         product.setId(id);

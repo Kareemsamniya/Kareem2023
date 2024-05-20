@@ -37,7 +37,10 @@ public class MyProduct {
      */
     //todo do ait later when
 
+    public String image;
+
     public String isApproved;
+
 
     public long getRoomId() {
         return roomId;
@@ -95,6 +98,14 @@ public class MyProduct {
         this.alergyName = alergyName;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getIsApproved() {
         return isApproved;
     }
@@ -113,6 +124,7 @@ public class MyProduct {
                 ", productName='" + productName + '\'' +
                 ", companyName='" + companyName + '\'' +
                 ", alergyName='" + alergyName + '\'' +
+                ", image='" + image + '\'' +
                 ", isApproved='" + isApproved + '\'' +
                 '}';
     }
