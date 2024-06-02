@@ -21,7 +21,6 @@ public class SplashScreen extends AppCompatActivity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        etSplashWelcome= findViewById(R.id.etSplashWelcome);
         //start next activity (screen) automatically  after period of time
         Handler h = new Handler();
         Runnable r = new Runnable() {
