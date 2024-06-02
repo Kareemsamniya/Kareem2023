@@ -52,8 +52,25 @@ public class AddProduct extends AppCompatActivity {
 
     private  MyProduct product = new MyProduct();//עצם/נתון שרוצים לשמור
 
+    boolean toEdit = false;
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final Intent intent = getIntent();
+        if(intent!=null&&intent.getExtras()!=null&&intent.getExtras().get("prod")!=null)
+        {
+            toEdit=true;
+            product = (MyProduct) intent.getExtras().get("prod");
+            etAddProductCompanyName.setText(product.getCompanyName());
+            etAddProductBarcode.setText(product.getBarcode());
+            etAddProductProductName.setText(product.getProductName());
+            autoEtAddProductAlergy.setText(product.getAlergyName());
+
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -441,13 +458,14 @@ public class AddProduct extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-
-        //استخراج رقم مميز للكائن المخزون بقاعدة البيانات
-        final String id = db.collection("MyProducts").document().getId();
-        product.setId(id);
+        if(!toEdit) {
+            //استخراج رقم مميز للكائن المخزون بقاعدة البيانات
+            final String id = db.collection("MyProducts").document().getId();
+            product.setId(id);
+        }
         //اضافة كائن "لمجموعة" المنتجات ومعالج حدث لفحص نجاح المطلوب
         //معالج حدث لفحص هل تم المطلوب من قاعدة البيانات
-        db.collection("MyProducts").document(id).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.collection("MyProducts").document(product.getId()).set(product).addOnCompleteListener(new OnCompleteListener<Void>() {
             //دالة معالج لبحدث
             @Override
             public void onComplete(@NonNull Task<Void> task)

@@ -4,6 +4,7 @@ import static android.Manifest.permission.CALL_PHONE;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 import static androidx.core.app.ActivityCompat.requestPermissions;
+import static androidx.core.content.ContextCompat.startActivity;
 import static androidx.core.content.PermissionChecker.checkSelfPermission;
 
 import android.app.Activity;
@@ -26,6 +27,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.PermissionChecker;
 
+import com.example.kareem2023.AddProduct;
+import com.example.kareem2023.HaveAlergy;
+import com.example.kareem2023.MainActivity;
 import com.example.kareem2023.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -85,7 +89,7 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
         ImageButton imgBtnDelete=vitem.findViewById(R.id.imgBtnDelete);
         ImageButton imgBtnEdit=vitem.findViewById(R.id.imgBtnEdit);
         ImageButton imgBtnShare=vitem.findViewById(R.id.imgBtnShare);
-
+        ImageButton imgBtnWhats=vitem.findViewById(R.id.imgBtnWhats);
 
 
         //קבלת הנתון (עצם) הנוכחי
@@ -95,13 +99,37 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
         tvitmCompany.setText(current.getCompanyName());
         tvitmBarcode.setText(current.getProductName());
         tvitmAlergies.setText(current.getAlergyName());
+
+        imgBtnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), AddProduct.class);
+                i.putExtra("prod",current);
+              getContext().  startActivity(i);
+            }
+        });
+
+
+        imgBtnWhats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openSendWhatsAppV2(current.toString(),"");
+            }
+        });
+
+        imgBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                delMyTaskFromDB_FB(current);
+            }
+        });
         imgBtnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 openSendSmsApp(current.toString(),"");// אם יש טלפון המשימה מעבירים במקום ה ״״
             }
         });
-
+        downloadImageUsingPicasso(current.getImage(),imageView);
 
         return vitem;
     }
@@ -298,25 +326,7 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
      * <uses-permission android:name="android.permission.CALL_PHONE" />
      * @param phone מספר טלפון שרוצים להתקשר אליו
      */
-    private void callAPhoneNymber(String phone){
-        //בדיקה אם יש הרשאה לביצוע שיחה
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {//בדיקת גרסאות
-            //בדיקה אם ההרשאה לא אושרה בעבר
-            if (checkSelfPermission(getContext(),CALL_PHONE) == PermissionChecker.PERMISSION_DENIED) {
-                //רשימת ההרשאות שרוצים לבקש אישור
-                String[] permissions = {CALL_PHONE};
-                //בקשת אישור הרשאות (שולחים קוד הבקשה)
-                //התשובה תתקבל בפעולה onRequestPermissionsResult
-                requestPermissions((Activity) getContext(),permissions, 100);
-            }
-            else{
-                //אינטנט מרומז לפתיחת אפליקצית ההודות סמס
-                Intent phone_intent = new Intent(Intent.ACTION_CALL);
-                phone_intent.setData(Uri.parse("tel:" + phone));
-                getContext().startActivity(phone_intent);
-            }
-        }
-    }
+
 
 
 }

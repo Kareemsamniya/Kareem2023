@@ -3,11 +3,13 @@ package com.example.kareem2023.data.productTable;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 /**
  * wseftrwer
  */
-@Entity
-public class MyProduct {
+@Entity                  //لكي نتمكن من نقل الكائن بواسطة intent من شاشة الى اخرى
+public class MyProduct implements Serializable {
     @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
     public long roomId;//
     /**رقم المنتج
