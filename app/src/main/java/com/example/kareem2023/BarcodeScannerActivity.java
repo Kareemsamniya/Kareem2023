@@ -138,11 +138,5 @@ public class BarcodeScannerActivity extends AppCompatActivity
         initialiseDetectorsAndSources();
     }
 
-    public TextView getBarcodeText() {
-        return barcodeText;
-    }
 
-    public String getBarcodeData() {
-        return barcodeData;
-    }
 }

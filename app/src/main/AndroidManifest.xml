@@ -23,7 +23,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/my_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Kareem2023"
+        android:theme="@style/AppTheme"
         tools:ignore="ExtraText"
         tools:targetApi="31">
 
