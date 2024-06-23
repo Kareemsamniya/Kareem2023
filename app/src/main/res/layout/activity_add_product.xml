@@ -87,9 +87,9 @@
             tools:ignore="TouchTargetSizeCheck" />
 
         <ImageButton
-            android:id="@+id/imgBtnProductn"
+            android:id="@+id/imgBtnProduct"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="175dp"
             tools:srcCompat="@tools:sample/avatars" />
 
