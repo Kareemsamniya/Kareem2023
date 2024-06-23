@@ -147,7 +147,7 @@ public class AddProduct extends AppCompatActivity {
     }
 
 
-    //upload: 6
+    //upload: 66666
     /**
      * בדיקה האם יש הרשאה לגישה לקבצים בטלפון
      */
