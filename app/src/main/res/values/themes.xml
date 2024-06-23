@@ -2,9 +2,9 @@
     <!-- Base application theme. -->
     <style name="Theme.Kareem2023" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/MyPrimary</item>
-        <item name="colorPrimaryDark">@color/MyPrimarydark</item>
-        <item name="colorAccent">@color/MyPrimaryLight</item>
+<!--        <item name="colorPrimary">@color/MyPrimary</item>-->
+<!--        <item name="colorPrimaryDark">@color/MyPrimarydark</item>-->
+<!--        <item name="colorAccent">@color/MyPrimaryLight</item>-->
         <!-- Customize your theme here. -->
     </style>
 </resources>

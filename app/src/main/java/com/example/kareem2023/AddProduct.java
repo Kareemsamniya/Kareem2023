@@ -85,7 +85,7 @@ public class AddProduct extends AppCompatActivity {
         btnAddProductSaveProduct = findViewById(R.id.btnAddProductSaveProduct);
 
 //upload: 3
-        imgBtnl=findViewById(R.id.imgBtnProductn);
+        imgBtnl=findViewById(R.id.imgBtnProduct);
         imgBtnl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

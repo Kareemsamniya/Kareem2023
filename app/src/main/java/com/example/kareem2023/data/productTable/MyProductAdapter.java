@@ -130,9 +130,18 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
             }
         });
         downloadImageUsingPicasso(current.getImage(),imageView);
-
+        /**
+         * اذا كان البريد المستخدم للمدير يستطيع اضافة منتجات واذا لم يكن للمدير لا يستطيع الاضافة
+         */
+        final String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        if(email.equals("kareem.samniya@gmail.com")==false)
+        {
+            imgBtnEdit.setVisibility(View.GONE);
+            imgBtnDelete.setVisibility(View.GONE);
+        }
         return vitem;
     }
+
 
 
     /**

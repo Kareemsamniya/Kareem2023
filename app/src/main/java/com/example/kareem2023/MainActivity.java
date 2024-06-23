@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -52,6 +53,11 @@ public class MainActivity extends AppCompatActivity
         btnMainCkCode = findViewById(R.id.btnMainCkCode);
         btnMainCkScan = findViewById(R.id.btnMainChkScan);
         fabMainAdd = findViewById(R.id.fabMainAdd);
+
+
+
+
+
         /**
          * هذه الدالة اذا قمت بالضعط على اشارة الزائد لأضافة منتج الى صفحط اضافة المنتجات (هذه الصفحة مخصصة فقط للمدير)
          */
