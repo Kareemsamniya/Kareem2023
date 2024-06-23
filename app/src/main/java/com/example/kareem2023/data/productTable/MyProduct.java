@@ -13,7 +13,7 @@ public class MyProduct implements Serializable {
     @PrimaryKey(autoGenerate = true)//تحديد الصفة كمفتاح رئيسي والذي يُنتجح بشكل تلقائي
     public long roomId;//
     /**رقم المنتج
-     * 
+     *
      */
     public String id;
     /**
@@ -40,6 +40,9 @@ public class MyProduct implements Serializable {
     //todo do ait later when
 
     public String image;
+    /**
+     * صورة للمنتج
+     */
 
     public String isApproved;
 
