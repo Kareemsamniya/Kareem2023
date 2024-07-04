@@ -3,6 +3,8 @@ package com.example.kareem2023;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,7 @@ import com.example.kareem2023.data.productTable.MyProductAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     private FloatingActionButton fabMainAdd;
     private ListView lstProducts;
     private MyProductAdapter productsAdapter;
+    private TextInputEditText etCode;
 
 
     @Override
@@ -53,7 +57,23 @@ public class MainActivity extends AppCompatActivity
         btnMainCkCode = findViewById(R.id.btnMainCkCode);
         btnMainCkScan = findViewById(R.id.btnMainChkScan);
         fabMainAdd = findViewById(R.id.fabMainAdd);
+        etCode=findViewById(R.id.etCode);
+        etCode.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    productsAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
 
 
@@ -158,6 +178,7 @@ public class MainActivity extends AppCompatActivity
                             }
                             productsAdapter.clear();//ניקוי המתאם מכל הנתונים
                             productsAdapter.addAll(arrayList);//הוספת כל הנתונים למתאם
+                            productsAdapter.setOrginal(arrayList);
                         } else {
                             Toast.makeText(MainActivity.this, "Error Reading data" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

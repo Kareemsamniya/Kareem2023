@@ -53,9 +53,17 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
 {
     //המזהה של קובץ עיצוב הפריט
     private final int itemLayout;
-    private MyFilter myFilter;
+    private MyFilter myfilter;
+    private ArrayList<MyProduct> orginal;
+    private ArrayList<MyProduct> filteredTasks;
 
+    public void setOrginal(ArrayList<MyProduct> orginal) {
+        this.orginal = orginal;
+    }
 
+    public ArrayList<MyProduct> getOrginal() {
+        return orginal;
+    }
 
     /**
      * פעולה בונה מתאם
@@ -333,17 +341,13 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
         getContext().startActivity(sendIntent);
     }
 
-    /**
-     * ביצוע שיחה למפסר טלפון
-     * todo הוספת הרשאה בקובץ המניפיסט
-     * <uses-permission android:name="android.permission.CALL_PHONE" />
-     * @param phone מספר טלפון שרוצים להתקשר אליו
-     */
+
 
 
     @NonNull
     @Override
     public Filter getFilter() {
+
         if(myfilter==null)
             myfilter=new MyFilter();
         return myfilter;
@@ -358,8 +362,10 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
             ArrayList<MyProduct> temp=new ArrayList<>();
 
             int countChanges=0;
-            for (int i = 0; i < getCount(); i++) {
-                MyProduct myProduct = getItem(i);
+            for (MyProduct myProduct : orginal) {
+
+
+
                 if(myProduct. toString().toLowerCase().contains(charSequence.toString().toLowerCase()))
                 {
                     countChanges++;
