@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +42,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+import android.widget.Filter;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,7 +53,7 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
 {
     //המזהה של קובץ עיצוב הפריט
     private final int itemLayout;
-
+    private MyFilter myFilter;
 
 
 
@@ -78,6 +80,8 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
     {
 //בניית הפריט הגרפי מתו קובץ העיצוב
         View vitem= convertView;
+        if(vitem==null)
+            vitem=convertView=LayoutInflater.from(getContext()).inflate(itemLayout,parent,false);
 
         vitem= LayoutInflater.from(getContext()).inflate(R.layout.myproduct_item_layout,parent,false);
         //קבלת הפניות לרכיבים בקובץ העיצוב
@@ -337,5 +341,50 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
      */
 
 
+    @NonNull
+    @Override
+    public Filter getFilter() {
+        if(myfilter==null)
+            myfilter=new MyFilter();
+        return myfilter;
+    }
+
+    class MyFilter extends Filter{
+        ArrayList<MyProduct> filteredProducts=new ArrayList<>();
+
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            FilterResults results = new FilterResults();
+            ArrayList<MyProduct> temp=new ArrayList<>();
+
+            int countChanges=0;
+            for (int i = 0; i < getCount(); i++) {
+                MyProduct myProduct = getItem(i);
+                if(myProduct. toString().toLowerCase().contains(charSequence.toString().toLowerCase()))
+                {
+                    countChanges++;
+                    temp.add(myProduct);
+                }
+            }
+            if(charSequence.length()>0 ) {
+                results.values = new ArrayList<>( temp);
+                results.count = temp.size();
+            }
+            else {
+                results.values = new ArrayList<>(orginal);
+                results.count = orginal.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            filteredTasks= (ArrayList<MyProduct>) filterResults.values;
+            clear();
+            addAll(new ArrayList<>(filteredTasks));
+            notifyDataSetChanged();
+
+        }
+    }
 
 }

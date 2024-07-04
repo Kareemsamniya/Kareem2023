@@ -63,4 +63,10 @@ dependencies {
     // optional - Paging 3 Integration
     implementation "androidx.room:room-paging:$room_version"
      implementation 'com.squareup.picasso:picasso:2.5.2'
+
+
+
+
+    implementation 'com.journeyapps:zxing-android-embedded:4.1.0'
+
 }

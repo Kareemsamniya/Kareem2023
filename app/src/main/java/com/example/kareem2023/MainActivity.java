@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity
     public void onClickCheckWithScan(View V)
     {
 
-        Intent i = new Intent(MainActivity.this, BarcodeScannerActivity.class);
+        Intent i = new Intent(MainActivity.this, Scannnner.class);
         startActivity(i);
 
     }
