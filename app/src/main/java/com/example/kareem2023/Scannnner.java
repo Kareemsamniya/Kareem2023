@@ -24,7 +24,7 @@ public class Scannnner extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scannnner);
 
-        scan_qr = findViewById(R.id.scanqr);
+        sacn_qr = findViewById(R.id.scanqr);
         textView = findViewById(R.id.text);
 
         sacn_qr.setOnClickListener(new View.OnClickListener() {
@@ -32,7 +32,7 @@ public class Scannnner extends AppCompatActivity {
             public void onClick(View view) {
                 IntentIntegrator intentIntegrator = new IntentIntegrator(Scannnner.this);
                 intentIntegrator.setPrompt("scan any QR/Bar code");
-                intentIntegrator.setOrientationLocked(true);
+                intentIntegrator.setOrientationLocked(false);
                 intentIntegrator.initiateScan();
 
             }

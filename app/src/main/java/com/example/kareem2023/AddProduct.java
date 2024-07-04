@@ -22,12 +22,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.UUID;
 
@@ -35,7 +36,7 @@ public class AddProduct extends AppCompatActivity {
     private TextInputEditText etAddProductProductName;
     private TextInputEditText etAddProductCompanyName;
     private TextInputEditText etAddProductBarcode;
-    private AutoCompleteTextView autoEtAddProductAlergy;
+    private TextInputEditText etAddProductAlergy;
 
     private Button btnAddProductScan;
     private Button btnAddProductCancelProduct;
@@ -66,7 +67,7 @@ public class AddProduct extends AppCompatActivity {
             etAddProductCompanyName.setText(product.getCompanyName());
             etAddProductBarcode.setText(product.getBarcode());
             etAddProductProductName.setText(product.getProductName());
-            autoEtAddProductAlergy.setText(product.getAlergyName());
+            etAddProductAlergy.setText(product.getAlergyName());
 
         }
 
@@ -79,10 +80,19 @@ public class AddProduct extends AppCompatActivity {
         etAddProductProductName = findViewById(R.id.etAddProductProductName);
         etAddProductCompanyName = findViewById(R.id.etAddProductCompanyName);
         etAddProductBarcode = findViewById(R.id.etAddProductBarcode);
-        autoEtAddProductAlergy = findViewById(R.id.autoEtAddProductAlergy);
-        btnAddProductScan = findViewById(R.id.btnAddProductSaveProduct);
+        etAddProductAlergy = findViewById(R.id.etAddProductAlergy);
+        btnAddProductScan = findViewById(R.id.btnAddProductScan);
         btnAddProductCancelProduct = findViewById(R.id.btnAddProductCancelProduct);
         btnAddProductSaveProduct = findViewById(R.id.btnAddProductSaveProduct);
+        btnAddProductScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                IntentIntegrator intentIntegrator = new IntentIntegrator(AddProduct.this);
+                intentIntegrator.setPrompt("scan any QR/Bar code");
+                intentIntegrator.setOrientationLocked(false);
+                intentIntegrator.initiateScan();
+            }
+        });
 
 //upload: 3
         imgBtnl=findViewById(R.id.imgBtnProduct);
@@ -143,6 +153,24 @@ public class AddProduct extends AppCompatActivity {
             //a עידכון תכונת כתובת התמונה
             toUploadimageUri = data.getData();//קבלת כתובת התמונה הנתונים שניבחרו
             imgBtnl.setImageURI(toUploadimageUri);// הצגת התמונה שנבחרה על רכיב התמונה
+        }else
+        {
+            IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+            if(intentResult.getContents()!=null)
+            {
+                if(intentResult.getContents()!=null)
+                {
+                    etAddProductBarcode.setText(intentResult.getContents());
+                }
+                else
+                {
+                    Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else
+            {
+                super.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 
@@ -165,6 +193,7 @@ public class AddProduct extends AppCompatActivity {
                 //permission already granted אם יש הרשאה מקודם אז מפעילים בחירת תמונה מהטלפון
                 pickImageFromGallery();
             }
+
         }
         else {//אם גרסה ישנה ולא צריך קבלת אישור
             pickImageFromGallery();
@@ -293,7 +322,7 @@ public class AddProduct extends AppCompatActivity {
         //استخراج نص الموضوع
         String Barcode = etAddProductBarcode.getText().toString();
         //استخراج الأهمية
-        String ProductAlergy = autoEtAddProductAlergy.getText().toString();
+        String ProductAlergy = etAddProductAlergy.getText().toString();
         //فحص اسم الشركة ان كان فارغ
         if (ProductName.length() < 2 || ProductName.contains(" ") == true) {
             //تعديل المتغير ليدل على ان الفحص يعطي نتيجة خاطئة
@@ -314,7 +343,7 @@ public class AddProduct extends AppCompatActivity {
         if (ProductAlergy.length() < 2 || ProductAlergy.contains(" ") == true)
         {
             isAllOk = false;
-            autoEtAddProductAlergy.setError("Wrong Product Alergy");
+            etAddProductAlergy.setError("Wrong Product Alergy");
         }
         if(isAllOk)
         {
@@ -356,7 +385,7 @@ public class AddProduct extends AppCompatActivity {
         //استخراج نص الموضوع
         String Barcode = etAddProductBarcode.getText().toString();
         //استخراج الأهمية
-        String ProductAlergy = autoEtAddProductAlergy.getText().toString();
+        String ProductAlergy = etAddProductAlergy.getText().toString();
         //فحص اسم الشركة ان كان فارغ
         if (ProductName.length() < 2 || ProductName.contains(" ") == true) {
             //تعديل المتغير ليدل على ان الفحص يعطي نتيجة خاطئة
@@ -377,7 +406,7 @@ public class AddProduct extends AppCompatActivity {
         if (ProductAlergy.length() < 2 || ProductAlergy.contains(" ") == true)
         {
             isAllOk = false;
-            autoEtAddProductAlergy.setError("Wrong Product Alergy");
+            etAddProductAlergy.setError("Wrong Product Alergy");
 
         }
         if(isAllOk)

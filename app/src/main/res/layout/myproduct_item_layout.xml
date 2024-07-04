@@ -19,7 +19,8 @@
             android:id="@+id/imgVitm"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:src="@mipmap/my_logo"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -109,7 +109,7 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
         //הצגת הנתונים על שדות הרכיב הגרפי
         tvitmName.setText(current.getProductName());
         tvitmCompany.setText(current.getCompanyName());
-        tvitmBarcode.setText(current.getProductName());
+        tvitmBarcode.setText(current.getBarcode());
         tvitmAlergies.setText(current.getAlergyName());
 
         imgBtnEdit.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +141,10 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
                 openSendSmsApp(current.toString(),"");// אם יש טלפון המשימה מעבירים במקום ה ״״
             }
         });
+        if (current.getImage() == null || current.getImage().length()==0)
+        {
+
+        }else
         downloadImageUsingPicasso(current.getImage(),imageView);
         /**
          * اذا كان البريد المستخدم للمدير يستطيع اضافة منتجات واذا لم يكن للمدير لا يستطيع الاضافة
@@ -174,77 +178,8 @@ public class MyProductAdapter extends ArrayAdapter<MyProduct>
                 .resize(90,90)//שינוי גודל התמונה
                 .into(toView);// להציג בריכיב התמונה המיועד לתמונה זו
     }
-    /**
-     * הורדת הקובץ/התמונה לאחסון מיקומי של הטלפון והגתה על רכיב תמונה
-     * @param fileURL כתובת הקובץ באחסון הענן
-     * @param toView רכיב התמונה המיועד להצגת התמונה
-     */
-    private void downloadImageToLocalFile(String fileURL, final ImageView toView) {
-        if(fileURL==null) return;// אם אין תמונה= כתובת ריקה אז לא עושים כלום מפסיקים את הפעולה
-        // הפניה למיקום הקובץ באיחסון
-        StorageReference httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(fileURL);
-        final File localFile;
-        try {// יצירת קובץ מיקומי לפי שם וסוג קובץ
-            localFile = File.createTempFile("images", "jpg");
-            //הורדת הקובץ והוספת מאיזין שבודק אם ההורדה הצליחה או לא
-            httpsReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    // Local temp file has been created
-                    Toast.makeText(getContext(), "downloaded Image To Local File", Toast.LENGTH_SHORT).show();
-                    toView.setImageURI(Uri.fromFile(localFile));
-                }
-                //מאזין אם ההורדה נכשלה
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
-                    Toast.makeText(getContext(), "onFailure downloaded Image To Local File "+exception.getMessage(), Toast.LENGTH_SHORT).show();
-                    exception.printStackTrace();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
 
-    /**
-     * הורדת קובץ/תמונה לזיכרון של הטלפון (לא לאחסון)
-     * @param fileURL כתובת הקובץ באחסון הענן
-     * @param toView רכיב התמונה המיועד להצגת התמונה
-     */
-    private void downloadImageToMemory(String fileURL, final ImageView toView)
-    {
-        if(fileURL==null)return;
-        // הפניה למיקום הקובץ באיחסון
-        StorageReference httpsReference = FirebaseStorage.getInstance().getReferenceFromUrl(fileURL);
-        final long ONE_MEGABYTE = 1024 * 1024;
-        //הורדת הקובץ והוספת מאזין שבודק אם ההורדה הצליחה או לא
-        httpsReference.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                // Data for "images/island.jpg" is returns, use this as needed
-                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
-
-                toView.setImageBitmap(Bitmap.createScaledBitmap(bmp, 90, 90, false));
-                Toast.makeText(getContext(), "downloaded Image To Memory", Toast.LENGTH_SHORT).show();
-
-
-            }
-            //מאזין אם ההורדה נכשלה
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle any errors
-                Toast.makeText(getContext(), "onFailure downloaded Image To Local File "+exception.getMessage(), Toast.LENGTH_SHORT).show();
-                exception.printStackTrace();
-            }
-        });
-
-
-    }
 
     /**
      *  פתיחת אפליקצית שליחת sms

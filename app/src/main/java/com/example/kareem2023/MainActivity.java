@@ -16,6 +16,7 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,6 +30,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity
 {
 
     private Button btnMainCkScan;
-    private Button btnMainCkCode;
+
     private FloatingActionButton fabMainAdd;
     private ListView lstProducts;
     private MyProductAdapter productsAdapter;
@@ -54,13 +57,13 @@ public class MainActivity extends AppCompatActivity
         lstProducts = findViewById(R.id.lstvProducts);//הפניה לרכיב הגרפי שמציג אוסף
         productsAdapter = new MyProductAdapter(this,R.layout.myproduct_item_layout);//בניית המתאם
         lstProducts.setAdapter(productsAdapter);//קישור המתאם עם המציג הגרפי לאוסף
-        btnMainCkCode = findViewById(R.id.btnMainCkCode);
         btnMainCkScan = findViewById(R.id.btnMainChkScan);
         fabMainAdd = findViewById(R.id.fabMainAdd);
         etCode=findViewById(R.id.etCode);
         etCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                productsAdapter.getFilter().filter(charSequence);
 
             }
 
@@ -71,7 +74,6 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
 
@@ -197,8 +199,12 @@ public class MainActivity extends AppCompatActivity
     public void onClickCheckWithScan(View V)
     {
 
-        Intent i = new Intent(MainActivity.this, Scannnner.class);
-        startActivity(i);
+//        Intent i = new Intent(MainActivity.this, Scannnner.class);
+//        startActivity(i);
+        IntentIntegrator intentIntegrator = new IntentIntegrator(this);
+        intentIntegrator.setPrompt("scan any QR/Bar code");
+        intentIntegrator.setOrientationLocked(false);
+        intentIntegrator.initiateScan();
 
     }
 
@@ -252,6 +258,29 @@ public class MainActivity extends AppCompatActivity
 
         AlertDialog dialog = builder.create();//بناء شباك الحوار(ديالوج)
         dialog.show();//عرض الشباك
+    }
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode, @Nullable Intent data)
+    {
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode,resultCode,data);
+        if(intentResult.getContents()!=null)
+        {
+            if(intentResult.getContents()!=null)
+            {
+                etCode.setText(intentResult.getContents());
+
+            }
+            else
+            {
+                Toast.makeText(this, "Cancelled", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else
+        {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+
+
     }
 
 

@@ -32,15 +32,8 @@
                 android:id="@+id/etCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="ENTER PRODUCT CODE OR PRESS SCAN" />
+                android:hint="ENTER TO SEARCH OR PRESS TO SCAN" />
         </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btnMainCkCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onClickCheckWithCode"
-            android:text="CHECK WITH CODE" />
 
         <Button
             android:id="@+id/btnMainChkScan"

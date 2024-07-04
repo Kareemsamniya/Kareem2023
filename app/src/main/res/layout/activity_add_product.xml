@@ -78,18 +78,23 @@
                 tools:ignore="TouchTargetSizeCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <AutoCompleteTextView
-            android:id="@+id/autoEtAddProductAlergy"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Alergy"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:layout_height="match_parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etAddProductAlergy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:hint="Alergy"
+                tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <ImageButton
             android:id="@+id/imgBtnProduct"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="129dp"
             android:layout_marginBottom="175dp"
             tools:srcCompat="@tools:sample/avatars" />
 
