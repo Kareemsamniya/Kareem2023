@@ -189,13 +189,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    public void onClickCheckWithCode(View V)
-    {
-            
-        Intent i = new Intent(MainActivity.this, Code.class);
-        startActivity(i);
 
-    }
     public void onClickCheckWithScan(View V)
     {
 
@@ -229,7 +223,7 @@ public class MainActivity extends AppCompatActivity
     /**
      * تجهيو ديالوج
      */
-    public void showYesNoDialog()
+    public void  showYesNoDialog()
     {
         //تجهيز بناء شباك حوار "ديالوج" يتلقى بارامتر مؤشر للنشاط (اكتيفيتي) الحالي
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -268,7 +262,6 @@ public class MainActivity extends AppCompatActivity
             if(intentResult.getContents()!=null)
             {
                 etCode.setText(intentResult.getContents());
-
             }
             else
             {

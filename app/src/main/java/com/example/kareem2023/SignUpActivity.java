@@ -109,86 +109,86 @@ public class  SignUpActivity extends AppCompatActivity  {
 
 
     }
-    private void checkSignUp()
-    {
-        boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
-        //استخراج النص من حقل الحساسية
-        String Alergy = etSignUpAlergyName.getText().toString();
-        //استخراج النص من حقل الايميل
-        String Email = etSignUpEmail.getText().toString();
-        //استخراج نص كلمة المرور
-        String Password = etSignUpPassword.getText().toString();
-        //استخراج نص تأكيد كلمة المرور
-        String RePassword = etSignUpRepassword.getText().toString();
-        //استخراج نص الاسم
-        String Name = etSignUpName.getText().toString();
-        //استخراج نص رقم الهاتف
-        String Phone = etSignUpPhone.getText().toString();
-        //فحص الايميل ان كان طوله اقل من 6 او لا يحوي @ فهو خطأ
-        if (Email.length() < 6 || Email.contains("@") == false)
-        {
-            //تعديل المتغير ليدل على ان الفحص يعطي نتيجة خاطئة
-            isAllOk = false;
-            //عرض ملاحظة خطأ على الشاشة داخل حقل البريد
-            etSignUpEmail.setError("Wrong Email");
-        }
-        if(Password.length() < 8 || Password.contains(" ") == true)
-        {
-            isAllOk = false;
-            etSignUpPassword.setError("Wrong Password");
-        }
-        if(RePassword.length() == 0 || RePassword.equals(Password) == false )
-        {
-            isAllOk = false;
-            etSignUpRepassword.setError("Wrong Re-Password");
-        }
-        if(Name.length() < 2 || Name.contains(" ") == true)
-        {
-            isAllOk = false;
-            etSignUpName.setError("Wrong Name");
-        }
-        if(Phone.length() != 10 || Phone.contains(" ") == true )
-        {
-            isAllOk = false;
-            etSignUpPhone.setError("Wrong Phone");
-        }
-        if(Alergy.length() < 2 || Alergy.contains(" ") == true )
-        {
-            isAllOk = false;
-            etSignUpAlergyName.setError("Wrong Alergy Name");
-        }
-
-        if(isAllOk)
-        {
-            Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
-            //بناء قاعدة بيانات وارجاع مؤشر عليها 1
-            AppDatabase db= AppDatabase.getDB(getApplicationContext());
-            //مؤشر لكائن عمليات الجدول 2
-            MyUserQuery userQuery=db.getMyUserQuery();
-            //فحص هل البريد الالكتروني موجود من قبل اي تم التسجيل من قبل
-            if(userQuery.checkEmail(Email)!=null)
-            {
-                etSignUpEmail.setError("found email");
-            }
-            else// ان لم يكن البريد موجودا نقوم ببناء كائن للمستعمل وادخاله في الجدول MyUser المستعملين
-            {
-                //بناء كائن
-                MyUser myUser = new MyUser();
-                //تجديد قيم الصفات بالقيم التي استخرجناها
-                myUser.email=Email;
-                myUser.fullName=Name;
-                myUser.phone=Phone;
-                myUser.passw=Password;
-                myUser.alergy=Alergy;
-                //اضافة الكائن للجدول
-                userQuery.insert(myUser);
-                //اغلاق الشاشة الخالية
-                finish();
-            }
-        }
-
-
-    }
+//    private void checkSignUp()
+//    {
+//        boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
+//        //استخراج النص من حقل الحساسية
+//        String Alergy = etSignUpAlergyName.getText().toString();
+//        //استخراج النص من حقل الايميل
+//        String Email = etSignUpEmail.getText().toString();
+//        //استخراج نص كلمة المرور
+//        String Password = etSignUpPassword.getText().toString();
+//        //استخراج نص تأكيد كلمة المرور
+//        String RePassword = etSignUpRepassword.getText().toString();
+//        //استخراج نص الاسم
+//        String Name = etSignUpName.getText().toString();
+//        //استخراج نص رقم الهاتف
+//        String Phone = etSignUpPhone.getText().toString();
+//        //فحص الايميل ان كان طوله اقل من 6 او لا يحوي @ فهو خطأ
+//        if (Email.length() < 6 || Email.contains("@") == false)
+//        {
+//            //تعديل المتغير ليدل على ان الفحص يعطي نتيجة خاطئة
+//            isAllOk = false;
+//            //عرض ملاحظة خطأ على الشاشة داخل حقل البريد
+//            etSignUpEmail.setError("Wrong Email");
+//        }
+//        if(Password.length() < 8 || Password.contains(" ") == true)
+//        {
+//            isAllOk = false;
+//            etSignUpPassword.setError("Wrong Password");
+//        }
+//        if(RePassword.length() == 0 || RePassword.equals(Password) == false )
+//        {
+//            isAllOk = false;
+//            etSignUpRepassword.setError("Wrong Re-Password");
+//        }
+//        if(Name.length() < 2 || Name.contains(" ") == true)
+//        {
+//            isAllOk = false;
+//            etSignUpName.setError("Wrong Name");
+//        }
+//        if(Phone.length() != 10 || Phone.contains(" ") == true )
+//        {
+//            isAllOk = false;
+//            etSignUpPhone.setError("Wrong Phone");
+//        }
+//        if(Alergy.length() < 2 || Alergy.contains(" ") == true )
+//        {
+//            isAllOk = false;
+//            etSignUpAlergyName.setError("Wrong Alergy Name");
+//        }
+//
+//        if(isAllOk)
+//        {
+//            Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
+//            //بناء قاعدة بيانات وارجاع مؤشر عليها 1
+//            AppDatabase db= AppDatabase.getDB(getApplicationContext());
+//            //مؤشر لكائن عمليات الجدول 2
+//            MyUserQuery userQuery=db.getMyUserQuery();
+//            //فحص هل البريد الالكتروني موجود من قبل اي تم التسجيل من قبل
+//            if(userQuery.checkEmail(Email)!=null)
+//            {
+//                etSignUpEmail.setError("found email");
+//            }
+//            else// ان لم يكن البريد موجودا نقوم ببناء كائن للمستعمل وادخاله في الجدول MyUser المستعملين
+//            {
+//                //بناء كائن
+//                MyUser myUser = new MyUser();
+//                //تجديد قيم الصفات بالقيم التي استخرجناها
+//                myUser.email=Email;
+//                myUser.fullName=Name;
+//                myUser.phone=Phone;
+//                myUser.passw=Password;
+//                myUser.alergy=Alergy;
+//                //اضافة الكائن للجدول
+//                userQuery.insert(myUser);
+//                //اغلاق الشاشة الخالية
+//                finish();
+//            }
+//        }
+//
+//
+//    }
 
 
     private void checkAndSignUP_FB()

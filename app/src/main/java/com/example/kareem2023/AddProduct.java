@@ -312,65 +312,65 @@ public class AddProduct extends AppCompatActivity {
     }
 
 
-    private void checkAddProduct()
-    {
-        boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
-        //استخراج النص من حقل اسم المنتج
-        String ProductName = etAddProductProductName.getText().toString();
-        //استخراج اسم الشركة
-        String CompanyName = etAddProductCompanyName.getText().toString();
-        //استخراج نص الموضوع
-        String Barcode = etAddProductBarcode.getText().toString();
-        //استخراج الأهمية
-        String ProductAlergy = etAddProductAlergy.getText().toString();
-        //فحص اسم الشركة ان كان فارغ
-        if (ProductName.length() < 2 || ProductName.contains(" ") == true) {
-            //تعديل المتغير ليدل على ان الفحص يعطي نتيجة خاطئة
-            isAllOk = false;
-            //عرض ملاحظة خطأ على الشاشة داخل حقل النص القصير
-            etAddProductProductName.setError("Wrong ProductName");
-        }
-        if (CompanyName.length() < 2 || CompanyName.contains(" ") == true )
-        {
-            isAllOk = false;
-            etAddProductCompanyName.setError("Wrong Company Name");
-        }
-        if (Barcode.length() < 10 )
-        {
-            isAllOk = false;
-            etAddProductBarcode.setError("Wrong Barcode");
-        }
-        if (ProductAlergy.length() < 2 || ProductAlergy.contains(" ") == true)
-        {
-            isAllOk = false;
-            etAddProductAlergy.setError("Wrong Product Alergy");
-        }
-        if(isAllOk)
-        {
-            Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
-            //بناء قاعدة بيانات وارجاع مؤشر عليها 1
-            AppDatabase db= AppDatabase.getDB(getApplicationContext());
-            MyProductQuery productQuery = db.getMyProductQuery();
-            if(productQuery.checkAlergyName(ProductAlergy)==null)// فحص هل الموضوع موجود من قبل بالجدول
-            {// بناء موضوع جديد واضافته
-                MyProduct product=new MyProduct();
-                product.alergyName =ProductAlergy;
-                productQuery.insert(product);
-            }
-            //استخراج المنتج لاننا بحاجة لرقمه التسلسلي id
-            MyProduct product = productQuery.checkAlergyName(ProductAlergy);
-            //بناء منتج جديد وتحديد صفاته
-            MyProduct Product = new MyProduct();
-            //تجديد قيم الصفات بالقيم التي استخرجناها
-            Product.productName =ProductName;
-            Product.companyName =CompanyName;
-            Product.barcode = Barcode;
-            Product.id=product.getId();// تحديد رقم المنتج للمهمة
-            db.getMyProductQuery().insertProduct(Product);// اضافة المنتج للجدول
-            finish();//اغلاق الشاشة الخالية
-
-        }
-    }
+//    private void checkAddProduct()
+//    {
+//        boolean isAllOk = true;// يحوي نتيجة فحص الحقول ان كانت سليمة
+//        //استخراج النص من حقل اسم المنتج
+//        String ProductName = etAddProductProductName.getText().toString();
+//        //استخراج اسم الشركة
+//        String CompanyName = etAddProductCompanyName.getText().toString();
+//        //استخراج نص الموضوع
+//        String Barcode = etAddProductBarcode.getText().toString();
+//        //استخراج الأهمية
+//        String ProductAlergy = etAddProductAlergy.getText().toString();
+//        //فحص اسم الشركة ان كان فارغ
+//        if (ProductName.length() < 2 || ProductName.contains(" ") == true) {
+//            //تعديل المتغير ليدل على ان الفحص يعطي نتيجة خاطئة
+//            isAllOk = false;
+//            //عرض ملاحظة خطأ على الشاشة داخل حقل النص القصير
+//            etAddProductProductName.setError("Wrong ProductName");
+//        }
+//        if (CompanyName.length() < 2 || CompanyName.contains(" ") == true )
+//        {
+//            isAllOk = false;
+//            etAddProductCompanyName.setError("Wrong Company Name");
+//        }
+//        if (Barcode.length() < 10 )
+//        {
+//            isAllOk = false;
+//            etAddProductBarcode.setError("Wrong Barcode");
+//        }
+//        if (ProductAlergy.length() < 2 || ProductAlergy.contains(" ") == true)
+//        {
+//            isAllOk = false;
+//            etAddProductAlergy.setError("Wrong Product Alergy");
+//        }
+//        if(isAllOk)
+//        {
+//            Toast.makeText(this, "All Ok", Toast.LENGTH_SHORT).show();
+//            //بناء قاعدة بيانات وارجاع مؤشر عليها 1
+//            AppDatabase db= AppDatabase.getDB(getApplicationContext());
+//            MyProductQuery productQuery = db.getMyProductQuery();
+//            if(productQuery.checkAlergyName(ProductAlergy)==null)// فحص هل الموضوع موجود من قبل بالجدول
+//            {// بناء موضوع جديد واضافته
+//                MyProduct product=new MyProduct();
+//                product.alergyName =ProductAlergy;
+//                productQuery.insert(product);
+//            }
+//            //استخراج المنتج لاننا بحاجة لرقمه التسلسلي id
+//            MyProduct product = productQuery.checkAlergyName(ProductAlergy);
+//            //بناء منتج جديد وتحديد صفاته
+//            MyProduct Product = new MyProduct();
+//            //تجديد قيم الصفات بالقيم التي استخرجناها
+//            Product.productName =ProductName;
+//            Product.companyName =CompanyName;
+//            Product.barcode = Barcode;
+//            Product.id=product.getId();// تحديد رقم المنتج للمهمة
+//            db.getMyProductQuery().insertProduct(Product);// اضافة المنتج للجدول
+//            finish();//اغلاق الشاشة الخالية
+//
+//        }
+//    }
 
     /**
      * عملية تقوم بأستقبال المعطيات وفحصها
@@ -398,7 +398,7 @@ public class AddProduct extends AppCompatActivity {
             isAllOk = false;
             etAddProductCompanyName.setError("Wrong Company Name");
         }
-        if (Barcode.length() < 10 )
+        if (Barcode.length() < 2 )
         {
             isAllOk = false;
             etAddProductBarcode.setError("Wrong Barcode");
